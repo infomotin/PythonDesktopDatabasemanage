@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     "apps.subscription",
     "apps.notifications",
     "apps.workspaces",
+    "apps.query_analytics",
+    "apps.db_query_history",
 ]
 
 MIDDLEWARE = [
@@ -154,6 +156,22 @@ LOGGING = {
     "root": {"handlers": ["file"], "level": "INFO"},
     "loggers": {"django": {"handlers": ["file", "console"], "level": "INFO", "propagate": False}},
 }
+
+# ─── Query Analytics & Performance Monitoring ─────────────────
+QA_SLOW_QUERY_THRESHOLD_MS         = int(os.environ.get("SLOW_QUERY_THRESHOLD_MS", "500"))
+QA_ALERT_CPU_THRESHOLD_PCT         = float(os.environ.get("ALERT_CPU_THRESHOLD_PCT", "85"))
+QA_ALERT_MEM_THRESHOLD_MB          = float(os.environ.get("ALERT_MEM_THRESHOLD_MB", "512"))
+QA_ALERT_DURATION_CRITICAL_MS      = float(os.environ.get("ALERT_DURATION_CRITICAL_MS", "3000"))
+QA_ALERT_DURATION_WARNING_MS       = float(os.environ.get("ALERT_DURATION_WARNING_MS", "500"))
+QA_ALERT_POOL_SATURATION_PCT       = float(os.environ.get("ALERT_POOL_SATURATION_PCT", "90"))
+QA_ALERT_RATE_LIMIT_SECONDs        = float(os.environ.get("ALERT_RATE_LIMIT_SECONDS", "60"))
+QA_RECOMMENDATION_MIN_OCCURRENCES  = int(os.environ.get("RECOMMENDATION_MIN_OCCURRENCES", "3"))
+QA_RECOMMENDATION_MAX_PER_RUN      = int(os.environ.get("RECOMMENDATION_MAX_PER_RUN", "20"))
+QA_METRIC_RETENTION_DAYS           = int(os.environ.get("QA_METRIC_RETENTION_DAYS", "365"))
+QA_REALTIME_WINDOW_SECONDS         = int(os.environ.get("QA_REALTIME_WINDOW_SECONDS", "300"))
+QA_OPTIMIZATION_MIN_SCORE_PCT      = float(os.environ.get("OPTIMIZATION_MIN_SCORE_PCT", "10"))
+QA_TRIGGER_ENGINES                 = os.environ.get("QA_TRIGGER_ENGINES",
+                                                  "slow_query,alert,optimization,recommendation").split(",")
 
 SECURE_SSL_REDIRECT = env.bool("SECURE_SSL_REDIRECT", default=False)
 SESSION_COOKIE_SECURE = env.bool("SESSION_COOKIE_SECURE", default=False)

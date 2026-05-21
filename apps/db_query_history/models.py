@@ -13,7 +13,7 @@ class QueryHistory(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     user = models.ForeignKey("users.User", on_delete=models.CASCADE, related_name="query_history")
     connection = models.ForeignKey("connections.DatabaseConnection", on_delete=models.CASCADE, null=True, blank=True)
-    database = models.ForeignKey("databases.VirtualDatabase", on_delete=models.SET_NULL, null=True, blank=True)
+    database = models.ForeignKey("databases.ManagedDatabase", on_delete=models.SET_NULL, null=True, blank=True)
     query = models.TextField()
     query_type = models.CharField(max_length=20, choices=QueryTYPE, default="other")
     params = models.JSONField(default=dict, blank=True)
@@ -33,14 +33,16 @@ class QueryHistory(models.Model):
     is_error = models.BooleanField(default=False)
     column_names = models.JSONField(default=list, blank=True)
     human_readable_data = models.JSONField(default=dict, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True, db_index=True)
 
     class Meta:
         verbose_name = _("Query History")
         verbose_name_plural = _("Query History")
-        ordering = ["-created_at"]
+        ordering = ["-completed_at"]
 
     def __str__(self):
-        return f"{self.user.email} - {self.query_type} - {self.created_at.strftime('%Y-%m-%d %H:%M')}"
+        ts = str(self.completed_at) if self.completed_at else self.query_type
+        return f"{self.user.email} - {ts}"
 
     @property
     def is_error(self):
@@ -49,9 +51,9 @@ class QueryHistory(models.Model):
 
 @admin.register(QueryHistory)
 class QueryAdmin(admin.ModelAdmin):
-    list_display = ("user", "connection", "query_type", "success", "execution_time", "row_count", "created_at")
-    list_filter = ("success", "query_type", "connection", "created_at")
+    list_display = ("user", "connection", "query_type", "success", "execution_time", "row_count", "completed_at")
+    list_filter = ("success", "query_type", "connection", "completed_at")
     search_fields = ("query", "error_message", "user__email")
-    readonly_fields = ("created_at",)
-    ordering = ["-created_at"]
+    readonly_fields = ("completed_at", "completed_duration")
+    ordering = ["-completed_at"]
 

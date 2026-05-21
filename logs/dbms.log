@@ -1,1 +1,4 @@
 INFO 2026-05-21 12:42:12,262 autoreload Watching for file changes with StatReloader
+INFO 2026-05-21 13:39:17,125 autoreload D:\laragon\www\PythonDesktopDatabasemanage\config\settings.py changed, reloading.
+INFO 2026-05-21 13:43:46,228 autoreload Watching for file changes with StatReloader
+INFO 2026-05-21 14:02:12,164 autoreload Watching for file changes with StatReloader

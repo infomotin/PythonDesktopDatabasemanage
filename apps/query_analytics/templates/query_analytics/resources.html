@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block title %}Resource Monitor{% endblock %}
+{% block content %}
+<div class="max-w-[1400px] mx-auto px-4 py-6 space-y-6">
+  <div>
+    <h1 class="text-2xl font-bold text-gray-900 dark:text-white">Resource Monitor</h1>
+    <p class="text-sm text-gray-500 mt-1">Connection pool state, active queries, throughput trends.</p>
+  </div>
+
+  {# pool snapshots #}
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+    {% for snap in pool_snapshots %}
+    <div class="rounded-xl bg-white dark:bg-gray-800 shadow border
+      {% if snap.state == 'saturated' %}border-red-300
+      {% elif snap.state == 'busy' %}border-amber-300
+      {% else %}border-gray-200 dark:border-gray-700{% endif %} p-4">
+      <div class="flex items-center justify-between mb-3">
+        <h3 class="font-semibold text-gray-900 dark:text-white text-sm">{{ snap.connection.name }}</h3>
+        <span class="text-xs px-2 py-0.5 rounded-full
+          {% if snap.state == 'saturated' %}bg-red-100 text-red-700
+          {% elif snap.state == 'busy' %}bg-amber-100 text-amber-700
+          {% elif snap.state == 'active' %}bg-blue-100 text-blue-700
+          {% else %}bg-gray-100 text-gray-600{% endif %} capitalize">
+          {{ snap.get_state_display }}
+        </span>
+      </div>
+      <div class="grid grid-cols-2 gap-2 text-sm">
+        <div><span class="text-gray-500">Active</span>
+          <p class="font-bold text-gray-900 dark:text-white">{{ snap.active_connections }}</p></div>
+        <div><span class="text-gray-500">Idle</span>
+          <p class="font-bold text-gray-900 dark:text-white">{{ snap.idle_connections }}</p></div>
+        <div class="col-span-2">
+          <div class="flex justify-between text-xs text-gray-500 mb-1"><span>Capacity</span>
+            <span class="font-semibold
+              {% if snap.usage_pct > 90 %}text-red-600
+              {% elif snap.usage_pct > 70 %}text-amber-600{% else %}text-green-600{% endif %}">
+              {{ snap.usage_pct }}%
+            </span></div>
+          <div class="h-2 bg-gray-200 dark:bg-gray-600 rounded-full overflow-hidden">
+            <div class="h-full
+              {% if snap.usage_pct > 90 %}bg-red-500
+              {% elif snap.usage_pct > 70 %}bg-amber-500
+              {% else %}bg-green-500{% endif %}"
+                 style="width: {{ snap.usage_pct }}%"></div>
+          </div>
+          <p class="text-xs text-gray-500 mt-1">{{ snap.total_connections }}/{{ snap.max_capacity }} connections</p>
+        </div>
+      </div>
+    </div>
+    {% empty %}
+    <div class="rounded-xl bg-white dark:bg-gray-800 shadow border border-gray-200 dark:border-gray-700 p-8 text-center text-gray-400">
+      No pool snapshots yet. Enable pool tracking in settings.
+    </div>
+    {% endfor %}
+  </div>
+
+  {# timeline chart placeholder #}
+  <div class="rounded-xl bg-white dark:bg-gray-800 shadow border border-gray-200 dark:border-gray-700 p-4">
+    <h3 class="font-semibold text-gray-900 dark:text-white mb-3">Throughput — Last 24h</h3>
+    <div class="h-64">
+      <canvas id="throughputChart"></canvas>
+    </div>
+  </div>
+</div>
+{% endblock %}

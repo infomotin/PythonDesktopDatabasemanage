@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block title %}AI Optimizations{% endblock %}
+{% block content %}
+<div class="max-w-[1400px] mx-auto px-4 py-6 space-y-6">
+  <div class="flex items-center justify-between">
+    <div>
+      <h1 class="text-2xl font-bold text-gray-900 dark:text-white">AI Optimization Suggestions</h1>
+      <p class="text-sm text-gray-500 mt-1">Automated query rewrite and optimisation analysis.</p>
+    </div>
+    <div class="flex gap-2">
+      <a href="{% url 'query_analytics:analyze' %}" class="px-4 py-2 rounded-lg bg-blue-600 text-white text-sm font-medium hover:bg-blue-700">New Query</a>
+      <a href="?run=1" class="px-4 py-2 rounded-lg bg-indigo-600 text-white text-sm font-medium hover:bg-indigo-700">↻ Re-Analyse</a>
+    </div>
+  </div>
+
+  <div class="space-y-4">
+    {% for s in suggestions %}
+    <div class="rounded-xl bg-white dark:bg-gray-800 shadow border border-gray-200 dark:border-gray-700 overflow-hidden">
+      <div class="px-5 py-4 border-b border-gray-100 dark:border-gray-700 flex items-center justify-between">
+        <div>
+          <span class="inline-block px-2 py-0.5 rounded text-xs font-semibold bg-indigo-100 text-indigo-700 uppercase tracking-wide mb-1">{{ s.suggestion_type|default:s.suggestion_type|slugify }}</span>
+          <h2 class="font-semibold text-gray-900 dark:text-white">{{ s.title }}</h2>
+          <p class="text-sm text-gray-600 dark:text-gray-400 mt-0.5"><span class="font-mono capitalize">{{ s.engine }}</span> · {{ s.created_at|date:"Y-m-d H:i" }}</p>
+        </div>
+        <div class="text-right">
+          <p class="text-2xl font-bold text-emerald-600 dark:text-emerald-400">+{{ s.estimated_improvement_pct|default:s.estimated_improvement_pct|floatformat:0 }}%</p>
+          <p class="text-xs text-gray-500">estimated gain</p>
+          <span class="inline-block mt-1 px-2 py-0.5 rounded text-xs
+            {% if s.confidence == 'high' %}bg-green-100 text-green-700
+            {% elif s.confidence == 'medium' %}bg-amber-100 text-amber-700
+            {% else %}bg-gray-100 text-gray-600{% endif %}">
+            {{ s.confidence|capfirst }} confidence
+          </span>
+        </div>
+      </div>
+      <div class="px-5 py-4 space-y-3">
+        <div>
+          <p class="text-xs font-semibold text-gray-500 uppercase mb-1">Why</p>
+          <p class="text-sm text-gray-700 dark:text-gray-300">{{ s.rationale or s.description }}</p>
+        </div>
+        <div class="grid md:grid-cols-2 gap-4">
+          <div>
+            <p class="text-xs font-semibold text-gray-500 uppercase mb-1">Original</p>
+            <pre class="p-3 rounded-lg bg-red-50 dark:bg-red-900/20 text-xs text-red-800 dark:text-red-300 overflow-x-auto border border-red-200 dark:border-red-800"><code>{{ s.original_query|default:""|truncatechars:500 }}</code></pre>
+          </div>
+          <div>
+            <p class="text-xs font-semibold text-gray-500 uppercase mb-1">Suggested rewrite</p>
+            <pre class="p-3 rounded-lg bg-green-50 dark:bg-green-900/20 text-xs text-green-800 dark:text-green-300 overflow-x-auto border border-green-200 dark:border-green-800"><code>{{ s.optimized_query|default:""|truncatechars:500 }}</code></pre>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% empty %}
+    <div class="text-center py-12 text-gray-400">
+      <p>No optimization suggestions yet.</p>
+      <a href="?run=1" class="text-blue-600 underline">Run analysis</a> or post a query at <a href="{% url 'query_analytics:analyze' %}" class="text-blue-600 underline">New Query</a>.
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

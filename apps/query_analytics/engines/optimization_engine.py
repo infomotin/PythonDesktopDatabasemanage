@@ -76,9 +76,11 @@ def _opt_add_missing_indexes(engine: str, plan_json: dict, sql: str) -> tuple | 
         cols  = re.findall(r'\b(\w+)\s+=\s+', sql)
         if cols:
             if engine in ("postgresql", "cockroachdb"):
-                idx = f'CREATE INDEX "{tbl}_{"_".join(cols)}_idx" ON "{tbl}" ({", ".join(f\'"{c}"\' for c in cols)});'
+                col_parts = ', '.join(f'"{c}"' for c in cols)
+                idx = f'CREATE INDEX "{tbl}_{"_".join(cols)}_idx" ON "{tbl}" ({col_parts});'
             else:
-                idx = f"CREATE INDEX idx_{tbl}_{'_'.join(cols)} ON `{tbl}` ({', '.join('`'+c+'`' for c in cols)});"
+                anchor_parts = ', '.join('`' + c + '`' for c in cols)
+                idx = f"CREATE INDEX idx_{tbl}_{'_'.join(cols)} ON `{tbl}` ({anchor_parts});"
             return (
                 "missing_index",
                 sql,
@@ -105,16 +107,18 @@ def _opt_remove_redundant_joins(sql: str) -> tuple | None:
     ) if any(p > 0 for p in [where_pos, group_pos, order_pos]) else len(lower)
     tail = lower[from_pos:using_mask_end]
     for m in joins:
-        alias = strip.sub(" ", sql[m.end(): m.end()+30]).split()[0] if m.end() < len(sql) else ""
+        inner = sql[m.end(): m.end()+30]
+        alias = strip.sub(" ", inner).split()[0] if m.end() < len(sql) else ""
         if not alias or alias.upper() in ("JOIN", "ON", "WHERE"):
             continue
+        alias_clean = alias.strip('` "')
         pattern = re.compile(r'\b' + re.escape(alias) + r'\.', re.IGNORECASE)
         if not pattern.search(tail):
             return (
                 "unnecessary_join",
                 sql,
                 sql,
-                f"Joined table `{alias.strip('` \"')}` is referenced but not used. Consider removing the join.",
+                f"Joined table `{alias_clean}` is referenced but not used. Consider removing the join.",
                 18,
             )
     return None

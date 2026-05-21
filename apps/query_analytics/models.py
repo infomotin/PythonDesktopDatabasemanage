@@ -1,14 +1,14 @@
-import re
+import re as _re
 import uuid
 import hashlib
 
-from django.contrib.admin import display
+from django.contrib import admin
+from django.contrib.auth import get_user_model
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
-
-User = models.get_swappable_setting_name("AUTH_USER_MODEL")
+User = get_user_model()
 
 
 # ---------------------------------------------------------------------------
@@ -534,7 +534,7 @@ class QueryComparison(models.Model):
     Stores a comparison session: one or more QueryMetric results side-by-side
     (same query, same dataset, different engines or different parameter sets).
     """
-    id = models.UUIDField(primary_key_key=False, default=uuid.uuid4, editable=False)
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     user = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name="query_comparisons",
     )

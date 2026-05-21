@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block title %}Slow Queries{% endblock %}
+{% block content %}
+<div class="max-w-[1400px] mx-auto px-4 py-6 space-y-6">
+  <div class="flex items-center justify-between">
+    <div>
+      <h1 class="text-2xl font-bold text-gray-900 dark:text-white">Slow Queries</h1>
+      <p class="text-sm text-gray-500 mt-1">
+        Queries that exceeded the 500 ms threshold.
+        <span class="ml-2 inline-block px-2 py-0.5 rounded bg-amber-100 text-amber-700 text-xs font-semibold">
+          {{ object_list|default:slow_queries|length }} active
+        </span>
+      </p>
+    </div>
+    <a href="{% url 'query_analytics:metrics' %}?slow=1" class="px-4 py-2 rounded-lg bg-amber-50 border border-amber-200 text-amber-700 text-sm font-medium hover:bg-amber-100">
+      View Metrics →
+    </a>
+  </div>
+  <div class="rounded-xl bg-white dark:bg-gray-800 shadow border border-gray-200 dark:border-gray-700 overflow-hidden">
+    <table class="w-full text-sm">
+      <thead class="bg-gray-50 dark:bg-gray-900/50">
+        <tr>
+          <th class="px-4 py-2 text-left text-xs font-semibold text-gray-500 uppercase">Engine</th>
+          <th class="px-4 py-2 text-left text-xs font-semibold text-gray-500 uppercase">Query</th>
+          <th class="px-4 py-2 text-right text-xs font-semibold text-gray-500 uppercase">Avg ms</th>
+          <th class="px-4 py-2 text-right text-xs font-semibold text-gray-500 uppercase">Max ms</th>
+          <th class="px-4 py-2 text-center text-xs font-semibold text-gray-500 uppercase">Count</th>
+          <th class="px-4 py-2 text-center text-xs font-semibold text-gray-500 uppercase">Status</th>
+          <th class="px-4 py-2 text-left text-xs font-semibold text-gray-500 uppercase">First Seen</th>
+          <th class="px-4 py-2 text-left text-xs font-semibold text-gray-500 uppercase">Last Seen</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-gray-100 dark:divide-gray-700">
+        {% for sq in slow_queries %}
+        <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/30">
+          <td class="px-4 py-2 text-gray-700 dark:text-gray-300 capitalize">{{ sq.engine }}</td>
+          <td class="px-4 py-2 truncate max-w-md text-gray-800 dark:text-gray-200" title="{{ sq.query_text }}">{{ sq.query_text|truncatechars:90 }}</td>
+          <td class="px-4 py-2 text-right font-mono text-red-600 font-semibold">{{ sq.avg_duration_ms|floatformat:0 }}</td>
+          <td class="px-4 py-2 text-right font-mono text-gray-700 dark:text-gray-300">{{ sq.max_duration_ms|floatformat:0 }}</td>
+          <td class="px-4 py-2 text-center text-gray-700 dark:text-gray-300">{{ sq.occurrence_count }}</td>
+          <td class="px-4 py-2 text-center">
+            {% if sq.status == 'active' %}<span class="px-2 py-0.5 rounded text-xs bg-red-100 text-red-700 font-medium">Active</span>
+            {% elif sq.status == 'investigating' %}<span class="px-2 py-0.5 rounded text-xs bg-amber-100 text-amber-700 font-medium">Investigating</span>
+            {% elif sq.status == 'resolved' %}<span class="px-2 py-0.5 rounded text-xs bg-green-100 text-green-700 font-medium">Resolved</span>
+            {% else %}<span class="px-2 py-0.5 rounded text-xs bg-gray-100 text-gray-600">{{ sq.status }}</span>{% endif %}
+          </td>
+          <td class="px-4 py-2 text-xs text-gray-500">{{ sq.first_seen|date:"Y-m-d H:i" }}</td>
+          <td class="px-4 py-2 text-xs text-gray-500">{{ sq.last_seen|date:"Y-m-d H:i" }}</td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="8" class="px-4 py-10 text-center text-gray-400">No slow queries tracked yet.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% include "_pagination.html" with page_obj=slow_queries %}
+</div>
+{% endblock %}

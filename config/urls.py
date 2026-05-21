@@ -17,6 +17,7 @@ urlpatterns = [
     path("subscription/", include("apps.subscription.urls")),
     path("notifications/", include("apps.notifications.urls")),
     path("queries/", include("apps.db_query_history.urls")),
+    path("analytics-insights/", include("apps.query_analytics.urls")),
     path("api/", include("apps.core.api.urls")),
     path("api/connections/", include("apps.connections.urls")),
     path("api/databases/", include("apps.databases.urls")),

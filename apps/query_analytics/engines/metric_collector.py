@@ -1,19 +1,17 @@
 """
 query_analytics.engines.metric_collector
 ------------------------------------------
-Core metric-collection entry points.  Callers (middleware, view decorators,
-direct import from connections views) should use:
+Core metric-collection entry points.  Callers (view code, management commands)
+should use:
 
     from apps.query_analytics.engines.metric_collector import record_metric
 
-All heavy aggregation / time-series rollup is handed off to background
-tasks (management commands / Celery equivalent) so that the request thread
-is never blocked.
+All heavy aggregation is deferred to background tasks / management commands
+so the request thread is never blocked.
 """
 from __future__ import annotations
 
 import time
-import psutil
 import os
 from contextlib import contextmanager
 
@@ -28,41 +26,37 @@ from apps.query_analytics.models import (
     QueryOptimizationSuggestion,
     SlowQuery,
 )
-from apps.query_analytics.engines.index_engine    import generate_recommendations
+from apps.query_analytics.engines.index_engine        import generate_recommendations
 from apps.query_analytics.engines.optimization_engine import generate_suggestions
-from apps.query_analytics.engines.plan_parser     import parse
+from apps.query_analytics.engines.plan_parser         import parse
+from apps.query_analytics.engines.slow_query_engine   import check_threshold
+from apps.query_analytics.engines.alert_engine        import check_bottlenecks
+
+# ---------------------------------------------------------------------------
+# Which sub-engines are active  (comma-separated env var)
+# Available: slow_query, alert, optimization, recommendation
+# ---------------------------------------------------------------------------
+_raw = getattr(settings, "QA_TRIGGER_ENGINES",
+               "slow_query,alert,optimization,recommendation")
+if isinstance(_raw, str):
+    _TRIGGER_ENGINES: list[str] = [e.strip() for e in _raw.split(",") if e.strip()]
+else:
+    _TRIGGER_ENGINES = list(_raw)
 
 
 # ---------------------------------------------------------------------------
-# Subscription gating
+# Subscription / feature gates
 # ---------------------------------------------------------------------------
-def _user_can_access_feature(user, feature: str) -> bool:
-    """Return True when the user’s subscription tier allows the named feature."""
-    try:
-        sub = user.subscription_ref
-    except Exception:
-        return False
-    if not sub or not sub.tier:
-        return False
-    return bool(getattr(sub.tier, f"allow_{feature}", False))
-
-
 def _should_collect(user, engine: str) -> bool:
-    """
-    Free tier: only collects for engines the user has connected.
-    Pro/Enterprise: always collects.
-    """
+    """Free tier collects basic metrics; Premium/Enterprise always."""
     try:
         sub = user.subscription_ref
     except Exception:
         return True
-    if not sub:
+    if not sub or not sub.tier:
         return True
-    tier = getattr(sub.tier, "name", "") if sub.tier else ""
-    if tier in ("pro", "enterprise"):
-        return True
-    # free tier  –  collect but keep limited retention
-    return True
+    tier = sub.tier.name
+    return tier in ("pro", "enterprise") or tier == "free"  # always collect; retention differs
 
 
 # ---------------------------------------------------------------------------
@@ -86,12 +80,12 @@ def record_metric(
 ) -> QueryMetric:
     """
     Persist a QueryMetric row and trigger downstream engines.
-
-    This is the single function every part of the codebase should call
-    when wrapping a query execution.
+    Always non-blocking — engine errors are silently swallowed.
     """
+    from apps.query_analytics.models import MetricStatus  # avoid circular
+
     if not _should_collect(user, engine):
-        raise PermissionError("Query analytics is not included in your subscription tier.")
+        raise PermissionError("Analytics not available on your subscription tier.")
 
     metric_status = status or (MetricStatus.ERROR if not success else MetricStatus.SUCCESS)
 
@@ -112,24 +106,20 @@ def record_metric(
         error_message=error_message[:1024],
     )
 
-    # Fire async engines (do not block if they fail)
-    _engines = settings.QA_TRIGGER_ENGINES
-    for eng in _engines:
+    # Fire configured downstream engines — never raise into the caller
+    for eng in _TRIGGER_ENGINES:
         try:
             if eng == "slow_query":
-                # slow_query_engine.check_threshold(metric)
-                from apps.query_analytics.engines.slow_query_engine import check_threshold
                 check_threshold(metric)
             elif eng == "alert":
-                from apps.query_analytics.engines.alert_engine import check_bottlenecks
                 check_bottlenecks(metric)
             elif eng == "optimization" and success and duration_ms > 200:
-                from apps.query_analytics.engines.optimization_engine import generate_suggestions
                 generate_suggestions(user_id=str(user.id), metric=metric)
-            elif eng == "recommendation" and duration_ms > 500:
+            elif eng == "recommendation" and duration_ms > float(
+                    getattr(settings, "SLOW_QUERY_THRESHOLD_MS", 500)):
                 generate_recommendations(user_id=str(user.id))
         except Exception:
-            pass  # engines must never raise into the caller
+            pass
 
     return metric
 
@@ -142,7 +132,7 @@ def record_execution_plan(
     user,
     engine: str,
     plan_text: str,
-    duration_ms: float,
+    duration_ms: float = 0,
     connection=None,
     **extra,
 ) -> QueryExecutionPlan:
@@ -152,7 +142,7 @@ def record_execution_plan(
         engine=engine,
         plan_text=plan_text[:4096],
         parsed_plan=parsed,
-        execution_time_ms=duration_ms,
+        execution_time_ms=duration_ms or 0,
         rows_returned=parsed.get("actual_rows_returned", 0) or 0,
         rows_examined=parsed.get("actual_rows_examined", 0) or 0,
         total_cost=parsed.get("total_cost", 0),
@@ -165,6 +155,7 @@ def record_execution_plan(
 # ---------------------------------------------------------------------------
 def _mem_mb() -> float:
     try:
+        import psutil
         return round(psutil.Process(os.getpid()).memory_info().rss / 1024 / 1024, 2)
     except Exception:
         return 0.0
@@ -172,33 +163,28 @@ def _mem_mb() -> float:
 
 def _cpu_pct() -> float:
     try:
-        proc = psutil.Process(os.getpid())
-        return round(proc.cpu_percent(interval=0.01), 2)
+        import psutil
+        return round(psutil.Process(os.getpid()).cpu_percent(interval=0.001), 2)
     except Exception:
         return 0.0
 
 
 # ---------------------------------------------------------------------------
-# Context-manager decorator  (use as   with timed_query(user, engine) as m: …)
+# Context manager  usage:
+#   with timed_query(user, engine) as cm:
+#       result, cols = adapter.execute(sql)
 # ---------------------------------------------------------------------------
 @contextmanager
 def timed_query(user, engine: str, **kwargs):
-    """
-    Context manager that measures duration and calls record_metric
-    on exit.  Accepts all keyword args of record_metric plus:
-    - capture_output: bool  – if True, returns (result, cols, metric)
-    """
+    """Wraps a block of code, records a QueryMetric on exit."""
     t0   = time.perf_counter()
     ok   = True
     err  = ""
-    rows = 0
-
     try:
-        kwargs.setdefault("rows_affected", 0)
-        yield {} if not kwargs.pop("capture_output", False) else _CaptureCtx()
-    except Exception as ex:
+        yield {}
+    except Exception as exc:
         ok  = False
-        err = str(ex)
+        err = str(exc)
         raise
     finally:
         duration_ms = round((time.perf_counter() - t0) * 1000, 2)
@@ -207,43 +193,37 @@ def timed_query(user, engine: str, **kwargs):
             engine=engine,
             query_text=kwargs.get("query_text", ""),
             duration_ms=duration_ms,
-            rows_affected=kwargs.get("rows_affected", rows),
+            rows_affected=kwargs.get("rows_affected", 0),
             connection=kwargs.get("connection"),
             query_history=kwargs.get("query_history"),
             success=ok,
             error_message=err,
-            execution_plan_text=kwargs.get("execution_plan_text"),
-            memory_mb=kwargs.get("memory_mb"),
-            cpu_pct=kwargs.get("cpu_pct"),
-            status=kwargs.get("status"),
         )
 
 
-class _CaptureCtx:
-    def __init__(self):
-        self.cols  = []
-        self.rows  = []
-        self.metric = None
-
-
 # ---------------------------------------------------------------------------
-# Background / management-command helpers
+# Background / management-command helper
 # ---------------------------------------------------------------------------
-def aggregate_metrics(user_id: str, engine: str, granularity: str, bucket_start) -> MetricAggregate:
-    """Compute and persist one MetricAggregate row for the given bucket."""
+def aggregate_metrics(
+    user_id: str,
+    engine: str,
+    granularity: str,
+    bucket_start,
+) -> MetricAggregate:
+    """Compute and persist one MetricAggregate row for the given time bucket."""
+    import datetime as _dt_mod
+
     qs = QueryMetric.objects.filter(
-        user_id=user_id, engine=engine,
-        executed_at__gte=bucket_start,
+        user_id=user_id, engine=engine, executed_at__gte=bucket_start,
     )
-    next_ts = {
-        "1m":  60, "5m": 300, "15m": 900,
-        "1h":  3600, "1d": 86400,
-    }.get(granularity, 300)
-
-    bucket_end = bucket_start + __import__("datetime").timedelta(seconds=next_ts)
+    seconds = {"1m": 60, "5m": 300, "15m": 900, "1h": 3600, "1d": 86400}.get(granularity, 300)
+    bucket_end = bucket_start + _dt_mod.timedelta(seconds=seconds)
     qs = qs.filter(executed_at__lt=bucket_end)
 
-    agg, _created = MetricAggregate.objects.get_or_create(
+    from django.db.models.functions import Max as FMax, Min as FMin, Avg as FAvg, Sum as FSum, Count as FCount
+    from django.db.models import Q as FQ
+
+    agg, _ = MetricAggregate.objects.get_or_create(
         user_id=user_id, engine=engine, granularity=granularity, bucket_start=bucket_start,
         defaults=dict(
             avg_duration_ms=0, max_duration_ms=0, min_duration_ms=0,
@@ -252,19 +232,19 @@ def aggregate_metrics(user_id: str, engine: str, granularity: str, bucket_start)
         ),
     )
     values = qs.aggregate(
-        avg  = Avg("duration_ms"),
-        mx   = models.Max("duration_ms"),
-        mn   = models.Min("duration_ms"),
-        cnt  = models.Count("id"),
-        rows = models.Sum("rows_affected"),
-        mem  = models.Avg("memory_consumed_mb"),
-        cpu  = models.Avg("cpu_percent"),
-        err  = models.Count("id", filter=models.Q(status=MetricStatus.ERROR)),
+        avg_dur=FAvg("duration_ms"),
+        max_dur=FMax("duration_ms"),
+        min_dur=FMin("duration_ms"),
+        cnt=FCount("id"),
+        rows=FSum("rows_affected"),
+        mem=FAvg("memory_consumed_mb"),
+        cpu=FAvg("cpu_percent"),
+        err=FCount("id", filter=FQ(status="error")),
     )
-    if values["avg"] is not None:
-        agg.avg_duration_ms   = round(float(values["avg"]), 2)
-        agg.max_duration_ms   = round(float(values["mx"] or 0), 2)
-        agg.min_duration_ms   = round(float(values["mn"] or 0), 2)
+    if values["avg_dur"] is not None:
+        agg.avg_duration_ms   = round(float(values["avg_dur"]), 2)
+        agg.max_duration_ms   = round(float(values["max_dur"] or 0), 2)
+        agg.min_duration_ms   = round(float(values["min_dur"] or 0), 2)
         agg.query_count       = int(values["cnt"] or 0)
         agg.total_rows        = int(values["rows"] or 0)
         agg.avg_memory_mb     = round(float(values["mem"] or 0), 2)
@@ -272,6 +252,3 @@ def aggregate_metrics(user_id: str, engine: str, granularity: str, bucket_start)
         agg.error_count       = int(values["err"] or 0)
         agg.save()
     return agg
-
-
-from django.db import models  # re-export for use above

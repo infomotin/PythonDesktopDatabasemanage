@@ -1,0 +1,344 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Dashboard — Query Analytics{% endblock %}
+
+{% block extra_head %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+{% endblock %}
+
+{% block content %}
+<div class="max-w-[1600px] mx-auto px-4 py-6 space-y-6">
+
+  {# ── page header ─────────────────────────────────────────── #}
+  <div class="flex items-center justify-between">
+    <div>
+      <h1 class="text-2xl font-bold text-gray-900 dark:text-white">Query Analytics</h1>
+      <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">
+        Ringkasan performa query &amp; monitor sumber daya
+      </p>
+    </div>
+    <div class="flex gap-2">
+      <a href="{% url 'query_analytics:alerts' %}"
+         class="px-4 py-2 rounded-lg bg-amber-50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 text-sm font-medium border border-amber-300 dark:border-amber-700 hover:bg-amber-100 transition">
+        ⚠ Alerts <span class="ml-1 bg-amber-600 text-white text-xs px-1.5 py-0.5 rounded-full">{{ open_alerts.count|default:0 }}</span>
+      </a>
+      <a href="{% url 'query_analytics:recommendations' %}?run=1"
+         class="px-4 py-2 rounded-lg bg-blue-600 text-white text-sm font-medium hover:bg-blue-700 transition">
+        ↻ Generate Index
+      </a>
+      <a href="{% url 'query_analytics:optimizations' %}?run=1"
+         class="px-4 py-2 rounded-lg bg-indigo-600 text-white text-sm font-medium hover:bg-indigo-700 transition">
+        ↻ AI Optimize
+      </a>
+      {% if user.can_access_feature %}
+      <a href="{% url 'subscription:pricing' %}"
+         class="px-4 py-2 rounded-lg bg-purple-600 text-white text-sm font-medium hover:bg-purple-700 transition">
+        ⭐ Upgrade
+      </a>
+      {% endif %}
+    </div>
+  </div>
+
+  {# ── KPI cards ────────────────────────────────────────────── #}
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+    {% for label, key, bg in [
+      ("Queries (all-time)", "total_count_query", "bg-blue-500"),  # dummy lookup below
+      ("Avg Duration", "avg_dur_card", "bg-emerald-500"),
+      ("Slow Queries", "slow_card", "bg-amber-500"),
+      ("Errors", "error_card", "bg-red-500"),
+    ] %}
+    {% with sum=all_time %}
+    <div class="rounded-xl bg-white dark:bg-gray-800 shadow p-4 border border-gray-200 dark:border-gray-700">
+      <p class="text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wide">{{ label }}</p>
+      <p class="mt-2 text-3xl font-bold text-gray-900 dark:text-white">
+        {{ sum.count }}
+        <span class="text-lg text-gray-500 dark:text-gray-400">total</span>
+      </p>
+      <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
+        avg {{ sum.avg_dur|floatformat:1 }} ms
+      </p>
+    </div>
+    {% endwith %}
+    {% endfor %}
+
+    {# Slow #}
+    {% with sum=all_time %}
+    <div class="rounded-xl bg-amber-50 dark:bg-amber-900/20 p-4 border border-amber-200 dark:border-amber-700">
+      <p class="text-xs text-amber-700 dark:text-amber-300 uppercase">Slow Queries</p>
+      <p class="mt-2 text-3xl font-bold text-amber-700 dark:text-amber-300">
+        {{ sum.slow|default:0 }}
+      </p>
+      <p class="mt-1 text-xs text-amber-600 dark:text-amber-400">&gt; 500 ms threshold</p>
+    </div>
+    {% endwith %}
+
+    {# Errors #}
+    <div class="rounded-xl bg-red-50 dark:bg-red-900/20 p-4 border border-red-200 dark:border-red-700">
+      <p class="text-xs text-red-700 dark:text-red-300 uppercase">Errors</p>
+      <p class="mt-2 text-3xl font-bold text-red-700 dark:text-red-300">
+        {{ all_time.errors|default:0 }}
+      </p>
+      <p class="mt-1 text-xs text-red-600 dark:text-red-400">failed executions</p>
+    </div>
+  </div>
+
+  {# ── tabs ─────────────────────────────────────────────────── #}
+  <div class="flex gap-2 border-b border-gray-200 dark:border-gray-700 pb-3 overflow-x-auto">
+    <a href="{% url 'query_analytics:dashboard' %}"
+       class="px-4 py-1.5 rounded-full bg-gray-900 dark:bg-white text-white dark:text-gray-900 text-sm font-medium whitespace-nowrap">Dashboard</a>
+    <a href="{% url 'query_analytics:metrics' %}"
+       class="px-4 py-1.5 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 text-sm font-medium hover:bg-gray-200 whitespace-nowrap">Metrics</a>
+    <a href="{% url 'query_analytics:slow_queries' %}"
+       class="px-4 py-1.5 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 text-sm font-medium hover:bg-gray-200 whitespace-nowrap">Slow Queries</a>
+    <a href="{% url 'query_analytics:recommendations' %}"
+       class="px-4 py-1.5 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 text-sm font-medium hover:bg-gray-200 whitespace-nowrap">Index Recs</a>
+    <a href="{% url 'query_analytics:resources' %}"
+       class="px-4 py-1.5 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 text-sm font-medium hover:bg-gray-200 whitespace-nowrap">Resources</a>
+    <a href="{% url 'query_analytics:compare' %}"
+       class="px-4 py-1.5 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 text-sm font-medium hover:bg-gray-200 whitespace-nowrap">Compare</a>
+    <a href="{% url 'query_analytics:reports' %}"
+       class="px-4 py-1.5 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 text-sm font-medium hover:bg-gray-200 whitespace-nowrap">Reports</a>
+  </div>
+
+  {# ── Live metrics table ───────────────────────────────────── #}
+  <div class="rounded-xl bg-white dark:bg-gray-800 shadow border border-gray-200 dark:border-gray-700 overflow-hidden">
+    <div class="px-4 py-3 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between">
+      <h2 class="font-semibold text-gray-900 dark:text-white">Live Metrics
+        <span class="ml-2 inline-flex items-center gap-1">
+          <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+          <span class="text-xs text-gray-500" id="live-count">0 in last 5 min</span>
+        </span>
+      </h2>
+      <button onclick="fetchLiveMetrics()"
+              class="px-3 py-1 text-xs rounded bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600">
+        ↻ Refresh
+      </button>
+    </div>
+    <div class="overflow-x-auto">
+      <table class="w-full text-sm">
+        <thead class="bg-gray-50 dark:bg-gray-900/50">
+          <tr>
+            <th class="px-4 py-2 text-left text-xs font-semibold text-gray-500 uppercase">Engine</th>
+            <th class="px-4 py-2 text-left text-xs font-semibold text-gray-500 uppercase">Time</th>
+            <th class="px-4 py-2 text-left text-xs font-semibold text-gray-500 uppercase">Query</th>
+            <th class="px-4 py-2 text-right text-xs font-semibold text-gray-500 uppercase">ms</th>
+            <th class="px-4 py-2 text-right text-xs font-semibold text-gray-500 uppercase">Rows</th>
+            <th class="px-4 py-2 text-right text-xs font-semibold text-gray-500 uppercase">Mem MB</th>
+            <th class="px-4 py-2 text-right text-xs font-semibold text-gray-500 uppercase">CPU%</th>
+            <th class="px-4 py-2 text-center text-xs font-semibold text-gray-500 uppercase">Status</th>
+          </tr>
+        </thead>
+        <tbody id="live-metrics-body" class="divide-y divide-gray-100 dark:divide-gray-700">
+          <tr>
+            <td colspan="8" class="px-4 py-8 text-center text-gray-400">
+              Loading recent metrics…
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  {# ── two-column: chart + slow queries ─────────────────────── #}
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    {# performance trend #}
+    <div class="lg:col-span-2 rounded-xl bg-white dark:bg-gray-800 shadow border border-gray-200 dark:border-gray-700 p-4">
+      <h3 class="font-semibold text-gray-900 dark:text-white mb-3">Performance Trend — Last 24h</h3>
+      <div class="h-64">
+        <canvas id="perfChart"></canvas>
+      </div>
+    </div>
+
+    {# top slow queries #}
+    <div class="rounded-xl bg-white dark:bg-gray-800 shadow border border-gray-200 dark:border-gray-700 p-4">
+      <h3 class="font-semibold text-gray-900 dark:text-white mb-3">Top Slow Queries</h3>
+      <ul class="space-y-3" id="slow-list">
+        {% with slow_queries=recent_slow %}
+          {% if slow_queries %}
+            {% for sq in slow_queries %}
+            <li>
+              <a href="{% url 'query_analytics:slow_query_detail' pk=sq.pk %}"
+                 class="block p-3 rounded-lg border border-amber-200 dark:border-amber-700 bg-amber-50/40 hover:bg-amber-50 transition">
+                <div class="flex items-center justify-between">
+                  <span class="text-xs font-semibold uppercase text-amber-600 dark:text-amber-400">{{ sq.engine }}</span>
+                  <span class="text-xs text-amber-500">{{ sq.occurrence_count }}×</span>
+                </div>
+                <p class="text-sm text-gray-800 dark:text-gray-200 mt-1 truncate">{{ sq.query_text }}</p>
+                <p class="text-xs text-gray-500 mt-1">
+                  Avg <strong>{{ sq.avg_duration_ms|floatformat:0 }}ms</strong> · First {{ sq.first_seen|timesince }} ago
+                </p>
+              </a>
+            </li>
+            {% endfor %}
+          {% else %}
+            <li class="text-sm text-gray-400 text-center py-4">No slow queries</li>
+          {% endif %}
+        {% endwith %}
+      </ul>
+    </div>
+  </div>
+
+  {# ── engine breakdown table ───────────────────────────────── #}
+  <div class="rounded-xl bg-white dark:bg-gray-800 shadow border border-gray-200 dark:border-gray-700 overflow-hidden">
+    <div class="px-4 py-3 border-b border-gray-200 dark:border-gray-700">
+      <h3 class="font-semibold text-gray-900 dark:text-white">Performance by Engine</h3>
+    </div>
+    <div class="overflow-x-auto">
+      <table class="w-full text-sm">
+        <thead class="bg-gray-50 dark:bg-gray-900/50">
+          <tr>
+            <th class="px-4 py-2 text-left text-xs font-semibold text-gray-500 uppercase">Engine</th>
+            <th class="px-4 py-2 text-right text-xs font-semibold text-gray-500 uppercase">Queries</th>
+            <th class="px-4 py-2 text-right text-xs font-semibold text-gray-500 uppercase">Avg ms</th>
+            <th class="px-4 py-2 text-right text-xs font-semibold text-gray-500 uppercase">Slow</th>
+            <th class="px-4 py-2 text-center text-xs font-semibold text-gray-500 uppercase">Status</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-100 dark:divide-gray-700">
+          {% for es in engine_stats %}
+          <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/30">
+            <td class="px-4 py-2 font-medium text-gray-900 dark:text-white capitalize">{{ es.engine }}</td>
+            <td class="px-4 py-2 text-right text-gray-700 dark:text-gray-300">{{ es.count }}</td>
+            <td class="px-4 py-2 text-right text-gray-700 dark:text-gray-300">{{ es.avg_dur|floatformat:1 }}</td>
+            <td class="px-4 py-2 text-right">
+              <span class="{% if es.slow %}text-red-600{% else %}text-green-500{% endif %} font-semibold">{{ es.slow }}</span>
+            </td>
+            <td class="px-4 py-2 text-center">
+              {% if es.slow %}
+                <span class="inline-block px-2 py-0.5 rounded text-xs font-medium bg-amber-100 text-amber-700">⚠ Warning</span>
+              {% else %}
+                <span class="inline-block px-2 py-0.5 rounded text-xs font-medium bg-green-100 text-green-700">✓ OK</span>
+              {% endif %}
+            </td>
+          </tr>
+          {% empty %}
+          <tr><td colspan="5" class="px-4 py-8 text-center text-gray-400">No query data yet.</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  {# ── Index recs preview ───────────────────────────────────── #}
+  <div class="rounded-xl bg-white dark:bg-gray-800 shadow border border-gray-200 dark:border-gray-700 p-4">
+    <div class="flex items-center justify-between mb-3">
+      <h3 class="font-semibold text-gray-900 dark:text-white">Top Index Recommendations</h3>
+      <a href="{% url 'query_analytics:recommendations' %}"
+         class="text-sm text-blue-600 hover:underline">View all →</a>
+    </div>
+    <div class="overflow-x-auto">
+      <table class="w-full text-sm">
+        <thead class="bg-gray-50 dark:bg-gray-900/50">
+          <tr>
+            <th class="px-3 py-2 text-left text-xs font-semibold text-gray-500 uppercase">Table</th>
+            <th class="px-3 py-2 text-left text-xs font-semibold text-gray-500 uppercase">Columns</th>
+            <th class="px-3 py-2 text-left text-xs font-semibold text-gray-500 uppercase">Engine</th>
+            <th class="px-3 py-2 text-right text-xs font-semibold text-gray-500 uppercase">Score</th>
+            <th class="px-3 py-2 text-right text-xs font-semibold text-gray-500 uppercase">Improvement</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-100 dark:divide-gray-700">
+          {% for rec in top_recs %}
+          <tr>
+            <td class="px-3 py-2 font-mono text-gray-800 dark:text-gray-200">{{ rec.table_name }}</td>
+            <td class="px-3 py-2 text-gray-700 dark:text-gray-300">{{ rec.column_names|join:", " }}</td>
+            <td class="px-3 py-2 text-gray-700 dark:text-gray-300">{{ rec.engine }}</td>
+            <td class="px-3 py-2 text-right">
+              <span class="font-bold{% if rec.score > 70 %} text-red-600{% elif rec.score > 40 %} text-amber-600{% else %} text-green-600{% endif %}">{{ rec.score|floatformat:0 }}</span>
+            </td>
+            <td class="px-3 py-2 text-right text-emerald-600 dark:text-emerald-400 font-medium">
+              +{{ rec.estimated_improvement_pct|floatformat:0 }}%
+            </td>
+          </tr>
+          {% empty %}
+          <tr><td colspan="5" class="px-4 py-6 text-center text-gray-400 text-sm">No recommendations yet.
+            <a href="{% url 'query_analytics:recommendations' %}?run=1" class="text-blue-600 underline">Run analyser</a>.
+          </td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+{# ── Live-polling JS ──────────────────────────────────────── #}
+<script>
+// Perf chart
+const chartCtx = document.getElementById('perfChart');
+if (chartCtx && window.Chart) {
+  const agg = {{ timeline_data|safe|default:"[]" }};
+  const seriesMap = {};
+  agg.forEach(r => {
+    const key = r.engine || 'other';
+    if (!seriesMap[key]) seriesMap[key] = { label: key, data: [], labels: [] };
+    seriesMap[key].data.push([r.bucket_start, r.avg_duration_ms || 0]);
+  });
+  // Group by bucket_start
+  const buckets = [...new Set(agg.map(r => r.bucket_start))].sort();
+  const datasets = (agg.length ? Object.values(agg).map(r => ({
+    label: r.engine,
+    data: buckets.map(b => {
+      const m = agg.find(x => x.engine === r.engine && x.bucket_start === b);
+      return m ? (m.avg_duration_ms || 0) : null;
+    }),
+    borderWidth: 1.5,
+    tension: 0.3,
+    pointRadius: 0,
+    spanGaps: true,
+  })) : []);
+  new Chart(chartCtx, {
+    type: 'line',
+    data: {
+      labels: buckets.map(b => new Date(b).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'})),
+      datasets,
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { position: 'bottom' } },
+      scales: {
+        x: { ticks: { maxTicksLimit: 12 } },
+        y: { beginAtZero: true, title: { display: true, text: 'ms' } },
+      },
+    },
+  });
+}
+
+async function fetchLiveMetrics() {
+  try {
+    const res  = await fetch("{% url 'query_analytics:metrics_stream' %}");
+    const data = await res.json();
+    const max  = data.count || 0;
+    document.getElementById('live-count').textContent = max + ' in last 5 min';
+    const tbody = document.getElementById('live-metrics-body');
+    tbody.innerHTML = data.metrics.map(m => {
+      const statusCls = {
+        success: 'bg-green-100 text-green-700',
+        warning: 'bg-amber-100  text-amber-700',
+        critical:'bg-red-100    text-red-700',
+        error:   'bg-red-100    text-red-700',
+      }[m.status] || 'bg-gray-100 text-gray-600';
+      return `
+        <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/30">
+          <td class="px-4 py-2 font-medium text-gray-900 dark:text-white capitalize">${m.engine}</td>
+          <td class="px-4 py-2 text-gray-600 dark:text-gray-400 text-xs whitespace-nowrap">${m.executed_at}</td>
+          <td class="px-4 py-2 text-gray-700 dark:text-gray-300 truncate max-w-xs" title="${m.text.replace(/"/g,'&quot;')}">${m.label || m.text}</td>
+          <td class="px-4 py-2 text-right font-mono text-gray-800 dark:text-gray-200
+                      ${m.duration_ms > 1000 ? 'text-red-600 font-bold' : ''}">
+            ${m.duration_ms.toFixed(1)}</td>
+          <td class="px-4 py-2 text-right text-gray-700 dark:text-gray-300">${m.rows_affected.toLocaleString()}</td>
+          <td class="px-4 py-2 text-right text-gray-700 dark:text-gray-300">${m.memory_mb.toFixed(1)}</td>
+          <td class="px-4 py-2 text-right text-gray-700 dark:text-gray-300">${m.cpu_pct.toFixed(1)}</td>
+          <td class="px-4 py-2 text-center">
+            <span class="inline-block px-2 py-0.5 rounded text-xs font-medium ${statusCls}">${m.status}</span>
+          </td>
+        </tr>`;
+    }).join('');
+  } catch(e) { console.error(e); }
+}
+
+fetchLiveMetrics();
+setInterval(fetchLiveMetrics, 5000);
+</script>
+{% endblock %}

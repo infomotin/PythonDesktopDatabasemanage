@@ -6,20 +6,14 @@ records and updating their statistics when a new crossing-query appears.
 """
 from __future__ import annotations
 
-import timezone
-
 from django.conf import settings
 
 from apps.query_analytics.models import QueryMetric, SlowQuery
 
-
-# Configurable threshold (ms).  Override via env: SLOW_QUERY_THRESHOLD_MS=500
+# Configurable threshold (ms), overridable via env key SLOW_QUERY_THRESHOLD_MS
 _THRESHOLD_MS: float = int(getattr(settings, "SLOW_QUERY_THRESHOLD_MS", 500))
 
 
-# ---------------------------------------------------------------------------
-# Public API
-# ---------------------------------------------------------------------------
 def check_threshold(metric: QueryMetric) -> SlowQuery | None:
     """If *metric* is slow, create or update the corresponding SlowQuery."""
     if metric.duration_ms < _THRESHOLD_MS:
