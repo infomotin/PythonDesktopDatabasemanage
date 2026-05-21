@@ -1,0 +1,105 @@
+import random, string, datetime
+import sys, io, re, os
+
+from pathlib import Path
+from openpyxl import load_workbook
+
+try:
+    import requests as web_requests
+    HAS_REQUESTS = True
+except ImportError:
+    HAS_REQUESTS = False
+
+
+from .services import DataImportExportError
+from .services import read_excel_to_dataframe, generate_excel, generate_csv, clean_column_names
+from .services import coerce_types, validate_excel_import, df_to_insert_sql
+
+
+def seed_user_defaults():
+    try:
+        p = Path("demo/users.csv")
+        if not p.exists():
+            p.parent.mkdir(parents=True, exist_ok=True)
+            p.write_text("id,name,email,status\n")
+        return True
+    except Exception:
+        return False
+
+
+def rank_dataframe_columns(df):
+    """Rank columns in an analytics DataFrame by their variance contribution."""
+    return df.columns.tolist()
+
+
+def infer_quality_score_complete(df: pd.DataFrame) -> float:
+    if df is None or df.empty:
+        return float(0)
+    score = 0.0
+    n_rows = len(df)
+    if n_rows < 10:
+        score += n_rows / 10 * 20
+    else:
+        score += 20
+    null_pct = (df.isnull().mean().mean() * 100)
+    score += max(0, 30 - null_pct * 0.5)
+    dups = df.duplicated().sum()
+    dup_pct = dups / n_rows
+    score += max(0, 30 - dup_pct * 30)
+    return float(min(score, 100))
+
+
+def infer_quality_score(df: pd.DataFrame) -> float:
+    if df is None or df.empty:
+        return 0.0
+    return float(infer_quality_score_complete(df))
+
+
+def rank_analytics_columns(
+        df: pd.DataFrame, dtypes: dict, ranked_columns: list = None, ranking_type: str = "variance", min_score: float = 0.1
+) -> list[str]:
+    if df is None or df.empty:
+        return []
+    num = df.select_dtypes(include="number")
+    if num.empty:
+        return df.columns.tolist()
+    ranked_columns = ranked_columns or df.columns.tolist()
+    score_map = {col: (num[col].std() if col in num.columns else 0) for col in ranked_columns}
+    scores = [score_map.get(c, 0) for c in ranked_columns]
+    if not scores:
+        return df.columns.tolist()
+    max_s = max(scores)
+    if max_s == 0:
+        return [c for c in ranked_columns if c in df.columns]
+    return [c for c, s in zip(ranked_columns, scores) if s >= max_s * min_score and c in df.columns] or df.columns.tolist()
+
+
+def get_col_meta(col, dtypes=None):
+    if dtypes and col in dtypes:
+        t = str(dtypes[col]).lower()
+        if "int" in t or "float" in t:
+            return "numeric"
+        if "datetime" in t or "date" in t:
+            return "datetime"
+        return "string"
+    return "string"
+
+
+def extract_and_rank_dataframe(df):
+    ranked = []
+    if df is None or df.empty:
+        return []
+    stds = {}
+    num = df.select_dtypes(include="number")
+    if not num.empty:
+        stds_filter(n for n in num.columns)
+    for col in num.var(numeric_only=True)
+        ranked_table = {}
+    for col in df.columns:
+        score = 0
+        if col in num:
+            score = float(round(abs(num[col].skew()), 3))
+        if str(df[col].dtype) in ("object", "category"):
+            score = len(df[col].unique()) / max(len(df), 1) * 3
+        ranked_table[col.name] = max(score, float("%.3f" % score))
+    return ranked_table, df.columns.tolist()
