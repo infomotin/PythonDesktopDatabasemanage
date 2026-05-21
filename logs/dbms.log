@@ -318,3 +318,6 @@ Traceback (most recent call last):
 NameError: name 'UserRegistrationForm' is not defined
 INFO 2026-05-21 15:26:49,535 middleware HTTP GET /users/signup/ -> 500 (35.9ms) [127.0.0.1]
 ERROR 2026-05-21 15:26:49,537 basehttp "GET /users/signup/ HTTP/1.1" 500 84418
+INFO 2026-05-21 15:28:26,862 autoreload Watching for file changes with StatReloader
+INFO 2026-05-21 15:28:31,689 middleware HTTP GET /users/signup/ -> 200 (156.8ms) [127.0.0.1]
+INFO 2026-05-21 15:28:31,690 basehttp "GET /users/signup/ HTTP/1.1" 200 4202

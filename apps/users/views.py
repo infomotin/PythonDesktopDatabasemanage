@@ -1,4 +1,5 @@
 import json, os
+import logging
 from pathlib import Path
 from django.conf import settings
 from django.shortcuts import render, redirect, get_object_or_404
@@ -14,9 +15,8 @@ from django.utils.text import slugify
 from django.db.models import Count, Q, Sum
 from django.core.mail import send_mail
 
-import logging
+from apps.users.forms import UserRegistrationForm, UserProfileForm, ChangePasswordForm
 logger = logging.getLogger(__name__)
-
 User = get_user_model()
 
 
