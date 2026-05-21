@@ -33,3 +33,288 @@ Traceback (most recent call last):
   File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\http\request.py", line 202, in get_host
     raise DisallowedHost(msg)
 django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'testserver'. You may need to add 'testserver' to ALLOWED_HOSTS.
+INFO 2026-05-21 15:10:40,910 autoreload Watching for file changes with StatReloader
+INFO 2026-05-21 15:10:46,738 middleware HTTP GET / -> 302 (84.5ms) [127.0.0.1]
+INFO 2026-05-21 15:10:46,739 basehttp "GET / HTTP/1.1" 302 0
+ERROR 2026-05-21 15:10:48,796 middleware Unhandled exception on /users/login/: Module "apps.core.context_processors" does not define a "dbms_settings" attribute/class
+Traceback (most recent call last):
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\utils\module_loading.py", line 30, in import_string
+    return cached_import(module_path, class_name)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\utils\module_loading.py", line 16, in cached_import
+    return getattr(module, class_name)
+AttributeError: module 'apps.core.context_processors' has no attribute 'dbms_settings'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\views\decorators\http.py", line 64, in inner
+    return func(request, *args, **kwargs)
+  File "D:\laragon\www\PythonDesktopDatabasemanage\apps\users\views.py", line 38, in login_view
+    return render(request, "users/login.html", {"form": form, "page_title": "Sign In"})
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 170, in render
+    with context.bind_template(self):
+  File "D:\laragon\bin\python\python-3.10\lib\contextlib.py", line 135, in __enter__
+    return next(self.gen)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\context.py", line 256, in bind_template
+    processors = template.engine.template_context_processors + self._processors
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\utils\functional.py", line 47, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\engine.py", line 118, in template_context_processors
+    return tuple(import_string(path) for path in context_processors)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\engine.py", line 118, in <genexpr>
+    return tuple(import_string(path) for path in context_processors)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\utils\module_loading.py", line 32, in import_string
+    raise ImportError(
+ImportError: Module "apps.core.context_processors" does not define a "dbms_settings" attribute/class
+ERROR 2026-05-21 15:10:48,877 log Internal Server Error: /users/login/
+Traceback (most recent call last):
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\utils\module_loading.py", line 30, in import_string
+    return cached_import(module_path, class_name)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\utils\module_loading.py", line 16, in cached_import
+    return getattr(module, class_name)
+AttributeError: module 'apps.core.context_processors' has no attribute 'dbms_settings'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\views\decorators\http.py", line 64, in inner
+    return func(request, *args, **kwargs)
+  File "D:\laragon\www\PythonDesktopDatabasemanage\apps\users\views.py", line 38, in login_view
+    return render(request, "users/login.html", {"form": form, "page_title": "Sign In"})
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 170, in render
+    with context.bind_template(self):
+  File "D:\laragon\bin\python\python-3.10\lib\contextlib.py", line 135, in __enter__
+    return next(self.gen)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\context.py", line 256, in bind_template
+    processors = template.engine.template_context_processors + self._processors
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\utils\functional.py", line 47, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\engine.py", line 118, in template_context_processors
+    return tuple(import_string(path) for path in context_processors)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\engine.py", line 118, in <genexpr>
+    return tuple(import_string(path) for path in context_processors)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\utils\module_loading.py", line 32, in import_string
+    raise ImportError(
+ImportError: Module "apps.core.context_processors" does not define a "dbms_settings" attribute/class
+INFO 2026-05-21 15:10:48,880 middleware HTTP GET /users/login/ -> 500 (102.3ms) [127.0.0.1]
+ERROR 2026-05-21 15:10:48,881 basehttp "GET /users/login/?next=/ HTTP/1.1" 500 137045
+INFO 2026-05-21 15:17:32,859 autoreload Watching for file changes with StatReloader
+INFO 2026-05-21 15:17:53,259 autoreload Watching for file changes with StatReloader
+INFO 2026-05-21 15:20:29,218 autoreload D:\laragon\www\PythonDesktopDatabasemanage\config\urls.py changed, reloading.
+INFO 2026-05-21 15:20:30,128 autoreload D:\laragon\www\PythonDesktopDatabasemanage\config\urls.py changed, reloading.
+INFO 2026-05-21 15:20:31,409 autoreload Watching for file changes with StatReloader
+INFO 2026-05-21 15:20:54,805 autoreload Watching for file changes with StatReloader
+INFO 2026-05-21 15:22:34,459 middleware HTTP GET / -> 302 (28.7ms) [127.0.0.1]
+INFO 2026-05-21 15:22:34,459 basehttp "GET / HTTP/1.1" 302 0
+ERROR 2026-05-21 15:22:36,518 middleware Unhandled exception on /users/login/: Module "apps.core.context_processors" does not define a "dbms_settings" attribute/class
+Traceback (most recent call last):
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\utils\module_loading.py", line 30, in import_string
+    return cached_import(module_path, class_name)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\utils\module_loading.py", line 16, in cached_import
+    return getattr(module, class_name)
+AttributeError: module 'apps.core.context_processors' has no attribute 'dbms_settings'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\views\decorators\http.py", line 64, in inner
+    return func(request, *args, **kwargs)
+  File "D:\laragon\www\PythonDesktopDatabasemanage\apps\users\views.py", line 38, in login_view
+    return render(request, "users/login.html", {"form": form, "page_title": "Sign In"})
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 170, in render
+    with context.bind_template(self):
+  File "D:\laragon\bin\python\python-3.10\lib\contextlib.py", line 135, in __enter__
+    return next(self.gen)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\context.py", line 256, in bind_template
+    processors = template.engine.template_context_processors + self._processors
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\utils\functional.py", line 47, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\engine.py", line 118, in template_context_processors
+    return tuple(import_string(path) for path in context_processors)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\engine.py", line 118, in <genexpr>
+    return tuple(import_string(path) for path in context_processors)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\utils\module_loading.py", line 32, in import_string
+    raise ImportError(
+ImportError: Module "apps.core.context_processors" does not define a "dbms_settings" attribute/class
+ERROR 2026-05-21 15:22:36,557 log Internal Server Error: /users/login/
+Traceback (most recent call last):
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\utils\module_loading.py", line 30, in import_string
+    return cached_import(module_path, class_name)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\utils\module_loading.py", line 16, in cached_import
+    return getattr(module, class_name)
+AttributeError: module 'apps.core.context_processors' has no attribute 'dbms_settings'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\views\decorators\http.py", line 64, in inner
+    return func(request, *args, **kwargs)
+  File "D:\laragon\www\PythonDesktopDatabasemanage\apps\users\views.py", line 38, in login_view
+    return render(request, "users/login.html", {"form": form, "page_title": "Sign In"})
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 170, in render
+    with context.bind_template(self):
+  File "D:\laragon\bin\python\python-3.10\lib\contextlib.py", line 135, in __enter__
+    return next(self.gen)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\context.py", line 256, in bind_template
+    processors = template.engine.template_context_processors + self._processors
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\utils\functional.py", line 47, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\engine.py", line 118, in template_context_processors
+    return tuple(import_string(path) for path in context_processors)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\engine.py", line 118, in <genexpr>
+    return tuple(import_string(path) for path in context_processors)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\utils\module_loading.py", line 32, in import_string
+    raise ImportError(
+ImportError: Module "apps.core.context_processors" does not define a "dbms_settings" attribute/class
+INFO 2026-05-21 15:22:36,558 middleware HTTP GET /users/login/ -> 500 (45.2ms) [127.0.0.1]
+ERROR 2026-05-21 15:22:36,559 basehttp "GET /users/login/?next=/ HTTP/1.1" 500 142567
+INFO 2026-05-21 15:25:00,109 middleware HTTP GET / -> 302 (1.0ms) [127.0.0.1]
+INFO 2026-05-21 15:25:00,110 basehttp "GET / HTTP/1.1" 302 0
+ERROR 2026-05-21 15:25:00,113 middleware Unhandled exception on /users/login/: Module "apps.core.context_processors" does not define a "dbms_settings" attribute/class
+Traceback (most recent call last):
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\utils\module_loading.py", line 30, in import_string
+    return cached_import(module_path, class_name)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\utils\module_loading.py", line 16, in cached_import
+    return getattr(module, class_name)
+AttributeError: module 'apps.core.context_processors' has no attribute 'dbms_settings'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\views\decorators\http.py", line 64, in inner
+    return func(request, *args, **kwargs)
+  File "D:\laragon\www\PythonDesktopDatabasemanage\apps\users\views.py", line 38, in login_view
+    return render(request, "users/login.html", {"form": form, "page_title": "Sign In"})
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 170, in render
+    with context.bind_template(self):
+  File "D:\laragon\bin\python\python-3.10\lib\contextlib.py", line 135, in __enter__
+    return next(self.gen)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\context.py", line 256, in bind_template
+    processors = template.engine.template_context_processors + self._processors
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\utils\functional.py", line 47, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\engine.py", line 118, in template_context_processors
+    return tuple(import_string(path) for path in context_processors)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\engine.py", line 118, in <genexpr>
+    return tuple(import_string(path) for path in context_processors)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\utils\module_loading.py", line 32, in import_string
+    raise ImportError(
+ImportError: Module "apps.core.context_processors" does not define a "dbms_settings" attribute/class
+ERROR 2026-05-21 15:25:00,146 log Internal Server Error: /users/login/
+Traceback (most recent call last):
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\utils\module_loading.py", line 30, in import_string
+    return cached_import(module_path, class_name)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\utils\module_loading.py", line 16, in cached_import
+    return getattr(module, class_name)
+AttributeError: module 'apps.core.context_processors' has no attribute 'dbms_settings'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\views\decorators\http.py", line 64, in inner
+    return func(request, *args, **kwargs)
+  File "D:\laragon\www\PythonDesktopDatabasemanage\apps\users\views.py", line 38, in login_view
+    return render(request, "users/login.html", {"form": form, "page_title": "Sign In"})
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 170, in render
+    with context.bind_template(self):
+  File "D:\laragon\bin\python\python-3.10\lib\contextlib.py", line 135, in __enter__
+    return next(self.gen)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\context.py", line 256, in bind_template
+    processors = template.engine.template_context_processors + self._processors
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\utils\functional.py", line 47, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\engine.py", line 118, in template_context_processors
+    return tuple(import_string(path) for path in context_processors)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\engine.py", line 118, in <genexpr>
+    return tuple(import_string(path) for path in context_processors)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\utils\module_loading.py", line 32, in import_string
+    raise ImportError(
+ImportError: Module "apps.core.context_processors" does not define a "dbms_settings" attribute/class
+INFO 2026-05-21 15:25:00,148 middleware HTTP GET /users/login/ -> 500 (36.8ms) [127.0.0.1]
+ERROR 2026-05-21 15:25:00,150 basehttp "GET /users/login/?next=/ HTTP/1.1" 500 144199
+INFO 2026-05-21 15:25:00,442 middleware HTTP GET /favicon.ico -> 404 (11.1ms) [127.0.0.1]
+WARNING 2026-05-21 15:25:00,442 log Not Found: /favicon.ico
+WARNING 2026-05-21 15:25:00,443 basehttp "GET /favicon.ico HTTP/1.1" 404 4950
+INFO 2026-05-21 15:26:09,068 autoreload D:\laragon\www\PythonDesktopDatabasemanage\apps\core\context_processors.py changed, reloading.
+INFO 2026-05-21 15:26:10,498 autoreload Watching for file changes with StatReloader
+INFO 2026-05-21 15:26:18,072 middleware HTTP GET /users/login/ -> 200 (99.1ms) [127.0.0.1]
+INFO 2026-05-21 15:26:18,073 basehttp "GET /users/login/?next=/ HTTP/1.1" 200 2682
+INFO 2026-05-21 15:26:23,078 autoreload D:\laragon\www\PythonDesktopDatabasemanage\config\settings.py changed, reloading.
+INFO 2026-05-21 15:26:24,509 autoreload Watching for file changes with StatReloader
+INFO 2026-05-21 15:26:41,709 autoreload Watching for file changes with StatReloader
+ERROR 2026-05-21 15:26:49,500 middleware Unhandled exception on /users/signup/: name 'UserRegistrationForm' is not defined
+Traceback (most recent call last):
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\views\decorators\http.py", line 64, in inner
+    return func(request, *args, **kwargs)
+  File "D:\laragon\www\PythonDesktopDatabasemanage\apps\users\views.py", line 69, in signup_view
+    form = UserRegistrationForm()
+NameError: name 'UserRegistrationForm' is not defined
+ERROR 2026-05-21 15:26:49,534 log Internal Server Error: /users/signup/
+Traceback (most recent call last):
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\views\decorators\http.py", line 64, in inner
+    return func(request, *args, **kwargs)
+  File "D:\laragon\www\PythonDesktopDatabasemanage\apps\users\views.py", line 69, in signup_view
+    form = UserRegistrationForm()
+NameError: name 'UserRegistrationForm' is not defined
+INFO 2026-05-21 15:26:49,535 middleware HTTP GET /users/signup/ -> 500 (35.9ms) [127.0.0.1]
+ERROR 2026-05-21 15:26:49,537 basehttp "GET /users/signup/ HTTP/1.1" 500 84418

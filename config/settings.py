@@ -121,6 +121,10 @@ CRISPY_TEMPLATE_PACK = "tailwind"
 
 ENCRYPTION_KEY = env("ENCRYPTION_KEY", default="kilo-dbms-encryption-key-2024")
 
+DBMS_NAME = env("DBMS_NAME", default="DBMS Pro")
+DBMS_VERSION = env("DBMS_VERSION", default="1.0.0")
+DBMS_DESCRIPTION = env("DBMS_DESCRIPTION", default="Professional Database Management System")
+
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = env("EMAIL_HOST", default="smtp.gmail.com")
 EMAIL_PORT = env.int("EMAIL_PORT", default=587)

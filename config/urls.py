@@ -19,8 +19,7 @@ urlpatterns = [
     path("queries/", include("apps.db_query_history.urls")),
     path("analytics-insights/", include("apps.query_analytics.urls")),
     path("api/", include("apps.core.api.urls")),
-    path("api/connections/", include("apps.connections.urls")),
-    path("api/databases/", include("apps.databases.urls")),
+    
     path("password-reset/", include("django.contrib.auth.urls")),
 ]
 if settings.DEBUG:
