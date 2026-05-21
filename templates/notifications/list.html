@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Notifications - DBMS Pro{% endblock %}
+{% block content %}
+<div class="p-6">
+    <div class="flex items-center justify-between mb-4">
+        <h1 class="text-2xl font-bold text-white">Notifications</h1>
+        <form method="post" action="{% url 'notifications:mark_all_read' %}">
+            {% csrf_token %}
+            <button class="bg-gray-700 hover:bg-gray-600 text-white px-3 py-1 rounded text-sm">Mark All Read</button>
+        </form>
+    </div>
+    <div class="space-y-2">
+    {% for n in notifications %}
+    <div class="bg-gray-800 rounded-lg border {% if not n.is_read %}border-blue-600{% else %}border-gray-700{% endif %} p-4">
+        <div class="flex items-center justify-between">
+            <div><h3 class="font-semibold {% if n.type == 'error' %}text-red-400{% elif n.type == 'success' %}text-green-400{% elif n.type == 'warning' %}text-yellow-400{% else %}text-white{% endif %}">{{ n.title }}</h3>
+                <p class="text-gray-400 text-sm mt-1">{{ n.message }}</p>
+                <p class="text-gray-500 text-xs mt-1">{{ n.created_at|date:"Y-m-d H:i" }}</p></div>
+            {% if not n.is_read %}
+            <form method="post" action="{% url 'notifications:mark_read' n.pk %}">{% csrf_token %}<button class="text-blue-400 hover:text-blue-300 text-sm">Mark read</button></form>
+            {% else %}<span class="text-gray-500 text-xs">Read</span>{% endif %}
+        </div>
+    </div>
+    {% empty %}
+    <div class="bg-gray-800 rounded-lg border border-gray-700 p-6 text-center text-gray-500">No notifications.</div>
+    {% endfor %}
+    </div>
+</div>
+{% endblock %}

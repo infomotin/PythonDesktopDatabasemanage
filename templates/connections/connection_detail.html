@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}{{ connection.name }} - DBMS Pro{% endblock %}
+{% block content %}
+<div class="p-6 max-w-4xl">
+    <div class="flex items-center justify-between mb-4">
+        <div>
+            <h1 class="text-2xl font-bold">{{ connection.name }}</h1>
+            <p class="text-gray-400">{{ connection.get_engine_display }} — {{ connection.host }}:{{ connection.port }}</p>
+        </div>
+        <div class="space-x-2">
+            <a href="{% url 'connections:execute' connection.pk %}" class="bg-green-600 hover:bg-green-500 text-white px-4 py-2 rounded text-sm">Run Query</a>
+            <a href="{% url 'connections:update' connection.pk %}" class="bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded text-sm">Edit</a>
+            <a href="{% url 'connections:delete' connection.pk %}" class="bg-red-600 hover:bg-red-500 text-white px-4 py-2 rounded text-sm">Delete</a>
+        </div>
+    </div>
+    <div class="bg-gray-800 rounded-lg border border-gray-700 p-4 mb-4">
+        <dl class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+            <div><span class="text-gray-400">Engine:</span> <span class="text-white">{{ connection.get_engine_display }}</span></div>
+            <div><span class="text-gray-400">Host:</span> <span class="text-white">{{ connection.host }}</span></div>
+            <div><span class="text-gray-400">Port:</span> <span class="text-white">{{ connection.port }}</span></div>
+            <div><span class="text-gray-400">Database:</span> <span class="text-white">{{ connection.dbname }}</span></div>
+            <div><span class="text-gray-400">User:</span> <span class="text-white">{{ connection.username }}</span></div>
+            <div><span class="text-gray-400">Queries run:</span> <span class="text-white">{{ connection.query_count }}</span></div>
+            <div><span class="text-gray-400">Last connected:</span> <span class="text-white">{{ connection.last_connected|default:"Never"|date:"Y-m-d H:i" }}</span></div>
+            <div><span class="text-gray-400">Created:</span> <span class="text-white">{{ connection.created_at|date:"Y-m-d H:i" }}</span></div>
+        </dl>
+    </div>
+</div>
+{% endblock %}

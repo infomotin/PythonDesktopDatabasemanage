@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}{{ page_title }} - DBMS Pro{% endblock %}
+{% block content %}
+<div class="p-6">
+<h1 class="text-2xl font-bold mb-4">{{ page_title }}</h1>
+<div class="overflow-x-auto bg-gray-800 rounded-lg border border-gray-700">
+<table class="w-full text-sm">
+    <thead class="bg-gray-700">
+    <tr>
+        <th class="px-4 py-3 text-left">ID</th><th class="px-4 py-3 text-left">Name</th><th class="px-4 py-3 text-left">Engine</th><th class="px-4 py-3 text-left">Host</th><th class="px-4 py-3 text-left">Database</th>
+        <th class="px-4 py-3 text-left">Active</th><th class="px-4 py-3 text-left">Queries</th><th class="px-4 py-3 text-left">Actions</th>
+    </tr>
+    </thead>
+    <tbody class="divide-y divide-gray-700">
+    {% for c in connections %}
+    <tr class="hover:bg-gray-700">
+        <td class="px-4 py-2 font-mono text-xs">{{ c.id|truncatechars:8 }}</td>
+        <td class="px-4 py-2 font-semibold">{{ c.name }}</td>
+        <td class="px-4 py-2"><span class="bg-blue-900 text-blue-200 px-2 py-0.5 rounded text-xs">{{ c.get_engine_display }}</span></td>
+        <td class="px-4 py-2 text-gray-300">{{ c.host }}:{{ c.port }}</td>
+        <td class="px-4 py-2 text-gray-300">{{ c.dbname }}</td>
+        <td class="px-4 py-2">{% if c.is_active %}<span class="text-green-400">Yes</span>{% else %}<span class="text-red-400">No</span>{% endif %}</td>
+        <td class="px-4 py-2 text-gray-400">{{ c.query_count }}</td>
+        <td class="px-4 py-2 text-right space-x-1">
+            <a href="{% url 'connections:detail' c.pk %}" class="bg-blue-600 hover:bg-blue-500 text-white px-2 py-1 rounded text-xs">View</a>
+            <a href="{% url 'connections:execute' c.pk %}" class="bg-green-600 hover:bg-green-500 text-white px-2 py-1 rounded text-xs">Query</a>
+            <a href="{% url 'connections:test' c.pk %}" class="bg-yellow-600 hover:bg-yellow-500 text-white px-2 py-1 rounded text-xs">Test</a>
+            <a href="{% url 'connections:delete' c.pk %}" class="bg-red-600 hover:bg-red-500 text-white px-2 py-1 rounded text-xs">Delete</a>
+        </td>
+    </tr>
+    {% empty %}
+    <tr><td colspan="8" class="px-4 py-8 text-center text-gray-500">No connections yet. Create your first one!</td></tr>
+    {% endfor %}
+    </tbody>
+</table>
+</div>
+<div class="mt-4"><a href="{% url 'connections:create' %}" class="bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded">+ New Connection</a></div>
+</div>
+{% endblock %}

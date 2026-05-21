@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Data Seeding - DBMS Pro{% endblock %}
+{% block content %}
+<div class="p-6">
+    <div class="flex items-center justify-between mb-6">
+        <h1 class="text-2xl font-bold text-white">Data Seeding</h1>
+        <a href="{% url 'seeding:schema_selector' %}" class="bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded">+ New Seed Job</a>
+    </div>
+    {% if jobs %}
+    <div class="bg-gray-800 rounded-lg border border-gray-700">
+    <table class="w-full text-sm">
+        <thead class="bg-gray-700"><tr>
+            <th class="px-4 py-3 text-left">ID</th><th class="px-4 py-3 text-left">Status</th><th class="px-4 py-3 text-left">Created</th><th class="px-4 py-3 text-left">Completed</th>
+        </tr></thead>
+        <tbody class="divide-y divide-gray-700">
+        {% for j in jobs %}
+        <tr class="hover:bg-gray-700">
+            <td class="px-4 py-2 font-mono text-xs">{{ j.id|truncatechars:8 }}</td>
+            <td class="px-4 py-2"><span class="px-2 py-0.5 rounded text-xs bg-{{ j.status|yesno:'green,blue,yellow,red,gray' }}-800 text-{{ j.status|yesno:'green,blue,yellow,red,white' }}-200">{{ j.get_status_display }}</span></td>
+            <td class="px-4 py-2 text-gray-400">{{ j.created_at|date:"Y-m-d H:i" }}</td>
+            <td class="px-4 py-2 text-gray-400">{{ j.completed_at|default:"—"|date:"Y-m-d H:i" }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    </div>
+    {% else %}
+    <div class="bg-gray-800 rounded-lg border border-gray-700 p-8 text-center text-gray-500">No seed jobs yet. Create your first one!</div>
+    {% endif %}
+</div>
+{% endblock %}

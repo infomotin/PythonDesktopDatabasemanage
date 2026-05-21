@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Profile - DBMS Pro{% endblock %}
+{% block content %}
+<div class="p-6 max-w-2xl">
+    <h1 class="text-2xl font-bold mb-6 text-white">Your Profile</h1>
+    <div class="bg-gray-800 rounded-lg border border-gray-700 p-6 space-y-4">
+        <div><span class="text-gray-400">Email:</span> <span class="text-white ml-2">{{ user.email }}</span></div>
+        <div><span class="text-gray-400">Username:</span> <span class="text-white ml-2">{{ user.username }}</span></div>
+        <div><span class="text-gray-400">Role:</span> <span class="text-white ml-2">{{ user.get_role_display }}</span></div>
+        <div><span class="text-gray-400">Full Name:</span> <span class="text-white ml-2">{{ user.full_name }}</span></div>
+        <div><span class="text-gray-400">Joined:</span> <span class="text-white ml-2">{{ user.created_at|date:"M d, Y" }}</span></div>
+        <div>
+            <a href="{% url 'users:edit_profile' %}" class="bg-blue-600 hover:bg-blue-500 text-white py-2 px-4 rounded text-sm">Edit Profile</a>
+            <a href="{% url 'users:change_password' %}" class="bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded text-sm ml-2">Change Password</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

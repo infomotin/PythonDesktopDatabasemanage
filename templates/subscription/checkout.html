@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Subscription Checkout - DBMS Pro{% endblock %}
+{% block content %}
+<div class="p-6 max-w-xl">
+    <h1 class="text-2xl font-bold mb-4">Checkout</h1>
+    {% if tier %}
+    <div class="bg-gray-800 rounded-lg border border-gray-700 p-4 mb-4">
+        <h2 class="font-bold text-lg">{{ tier.name }}</h2>
+        <p class="text-3xl font-bold text-blue-400 mt-2">${{ tier.price_monthly }}/mo</p>
+    </div>
+    <form method="post">{% csrf_token %}
+        <button class="bg-green-600 hover:bg-green-500 text-white px-4 py-2 rounded w-full">Confirm & Pay</button>
+    </form>
+    {% else %}
+    <p class="text-gray-400">No tier selected. <a href="{% url 'subscription:pricing' %}" class="text-blue-400">View plans</a></p>
+    {% endif %}
+</div>
+{% endblock %}

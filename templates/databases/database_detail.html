@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}{{ database.name }} - DBMS Pro{% endblock %}
+{% block content %}
+<div class="p-6 max-w-4xl">
+    <div class="flex items-center justify-between mb-4">
+        <div><h1 class="text-2xl font-bold">{{ database.name }}</h1><p class="text-gray-400">{{ database.get_type_display }} — {{ database.engine }}</p></div>
+        <div class="space-x-2">
+            <a href="{% url 'databases:edit' database.pk %}" class="bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded text-sm">Edit</a>
+            <a href="{% url 'databases:delete' database.pk %}" class="bg-red-600 hover:bg-red-500 text-white px-4 py-2 rounded text-sm">Delete</a>
+            <a href="{% url 'databases:storage_points' database.pk %}" class="bg-gray-600 hover:bg-gray-500 text-white px-4 py-2 rounded text-sm">Storage</a>
+        </div>
+    </div>
+    <div class="bg-gray-800 rounded-lg border border-gray-700 p-4">
+        <dl class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+            <div><span class="text-gray-400">Engine:</span> <span class="text-white">{{ database.engine }}</span></div>
+            <div><span class="text-gray-400">Type:</span> <span class="text-white">{{ database.get_type_display }}</span></div>
+            <div><span class="text-gray-400">Rows:</span> <span class="text-white">{{ database.row_count }}</span></div>
+            <div><span class="text-gray-400">Size:</span> <span class="text-white">{{ database.human_size }}</span></div>
+        </dl>
+    </div>
+</div>
+{% endblock %}

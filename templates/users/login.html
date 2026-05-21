@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Sign In - DBMS Pro{% endblock %}
+{% block content %}
+<div class="flex items-center justify-center min-h-[calc(100vh-4rem)]">
+    <div class="bg-gray-800 p-8 rounded-lg shadow-xl border border-gray-700 w-full max-w-md">
+        <h2 class="text-2xl font-bold mb-6 text-center">Sign In</h2>
+        <form method="post" novalidate>
+            {% csrf_token %}
+            <div class="space-y-4">
+                {% for field in form %}
+                <div>
+                    <label class="block text-sm text-gray-400 mb-1" for="{{ field.id_for_label }}">{{ field.label }}</label>
+                    {{ field }}
+                    {% if field.errors %}
+                    <p class="text-red-400 text-xs mt-1">{{ field.errors|striptags }}</p>
+                    {% endif %}
+                </div>
+                {% endfor %}
+                <button type="submit" class="w-full bg-blue-600 hover:bg-blue-500 text-white py-2.5 rounded font-semibold">Sign In</button>
+            </div>
+        </form>
+        <p class="text-center text-gray-500 text-sm mt-4">
+            No account? <a href="{% url 'users:signup' %}" class="text-blue-400 hover:underline">Create one</a>
+        </p>
+    </div>
+</div>
+{% endblock %}

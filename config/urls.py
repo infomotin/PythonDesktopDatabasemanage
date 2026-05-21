@@ -1,8 +1,7 @@
-from django.urls import path
+from django.urls import path, include
+from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
-from django.contrib import admin
-from django.urls import path, include
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -17,19 +16,12 @@ urlpatterns = [
     path("analytics/", include("apps.analytics.urls")),
     path("subscription/", include("apps.subscription.urls")),
     path("notifications/", include("apps.notifications.urls")),
-    path("queries/", include("apps.queries.urls")),
-    path("api/", include("apps.core.api_urls")),
-    path("api/", include("apps.connections.urls")),
-    path("api/", include("apps.databases.urls")),
+    path("queries/", include("apps.db_query_history.urls")),
+    path("api/", include("apps.core.api.urls")),
+    path("api/connections/", include("apps.connections.urls")),
+    path("api/databases/", include("apps.databases.urls")),
     path("password-reset/", include("django.contrib.auth.urls")),
 ]
-
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-
-try:
-    import debug_toolbar
-    urlpatterns = [path("__debug__/", include(debug_toolbar.urls))] + urlpatterns
-except ImportError:
-    pass

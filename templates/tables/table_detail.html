@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}{{ table.name }} - DBMS Pro{% endblock %}
+{% block content %}
+<div class="p-6 max-w-5xl">
+    <div class="mb-4"><h1 class="text-2xl font-bold">{{ table.name }}</h1><p class="text-gray-400">{{ table.database.name }}</p></div>
+    {% if columns %}
+    <div class="bg-gray-800 rounded-lg border border-gray-700 overflow-hidden">
+    <div class="px-4 py-2 bg-gray-700 text-sm font-semibold">Columns</div>
+    <table class="w-full text-sm">
+        <thead class="bg-gray-700"><tr><th class="px-3 py-2 text-left">#</th><th class="px-3 py-2 text-left">Column</th></tr></thead>
+        <tbody class="divide-y divide-gray-700">{% for c in columns %}<tr><td class="px-3 py-2">{{ forloop.counter }}</td><td class="px-3 py-2">{{ c }}</td></tr>{% endfor %}</tbody>
+    </table>
+    </div>
+    {% else %}
+    <p class="text-gray-500">No column data available.</p>
+    {% endif %}
+</div>
+{% endblock %}

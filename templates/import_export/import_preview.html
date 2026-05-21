@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Import Preview - DBMS Pro{% endblock %}
+{% block content %}
+<div class="p-6 max-w-5xl">
+    <h1 class="text-2xl font-bold mb-4">Import Preview</h1>
+    <p class="text-gray-400 mb-4">Preview and map columns before importing.</p>
+    {% if columns %}
+    <div class="bg-gray-800 rounded-lg border border-gray-700 overflow-hidden">
+    <table class="w-full text-sm">
+        <thead class="bg-gray-700"><tr>{% for c in columns %}<th class="px-3 py-2 text-left">{{ c }}</th>{% endfor %}</tr></thead>
+        <tbody class="divide-y divide-gray-700">
+        {% for row in preview %}<tr>{% for c in columns %}<td class="px-3 py-2">{{ row.get(c, "")|default_if_none:"" }}</td>{% endfor %}</tr>{% endfor %}
+        </tbody>
+    </table>
+    </div>
+    {% else %}
+    <p class="text-gray-500">No data available.</p>
+    {% endif %}
+</div>
+{% endblock %}

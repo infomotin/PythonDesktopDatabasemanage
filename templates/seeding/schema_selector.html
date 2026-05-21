@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Schema Selector - DBMS Pro{% endblock %}
+{% block content %}
+<div class="p-6 max-w-4xl">
+    <h1 class="text-2xl font-bold mb-4">Schema Selector</h1>
+    <p class="text-gray-400 mb-4">Select a connection and a database for your seeding job.</p>
+    <div class="bg-gray-800 rounded-lg border border-gray-700 p-6 mb-4">
+        <h3 class="font-semibold mb-3">Available Connections</h3>
+        {% for c in connections %}<div class="py-1 text-sm">{{ c.name }} <span class="text-gray-500">({{ c.get_engine_display }})</span></div>{% empty %}<p class="text-gray-500">No connections.</p>{% endfor %}
+        <h3 class="font-semibold mt-4 mb-3">Available Databases</h3>
+        {% for d in databases %}<div class="py-1 text-sm">{{ d.name }} <span class="text-gray-500">({{ d.engine }})</span></div>{% empty %}<p class="text-gray-500">No databases.</p>{% endfor %}
+    </div>
+</div>
+{% endblock %}

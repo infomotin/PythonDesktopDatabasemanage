@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}DBS - DBMS Pro{% endblock %}
+{% block content %}
+<div class="p-6">
+    <div class="flex items-center justify-between mb-6">
+        <h1 class="text-2xl font-bold text-white">Databases</h1>
+        <a href="{% url 'databases:create' %}" class="bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded">+ New Database</a>
+    </div>
+    <div class="overflow-x-auto bg-gray-800 rounded-lg border border-gray-700">
+    <table class="w-full text-sm">
+        <thead class="bg-gray-700"><tr>
+            <th class="px-4 py-3 text-left">Name</th><th class="px-4 py-3 text-left">Engine</th><th class="px-4 py-3 text-left">Type</th>
+            <th class="px-4 py-3 text-left">Rows</th><th class="px-4 py-3 text-left">Size</th><th class="px-4 py-3 text-left">Visible</th><th class="px-4 py-3 text-left">Actions</th>
+        </tr></thead>
+        <tbody class="divide-y divide-gray-700">
+        {% for db in databases %}
+        <tr class="hover:bg-gray-700">
+            <td class="px-4 py-2 font-semibold">{{ db.name }}</td>
+            <td class="px-4 py-2"><span class="bg-blue-900 text-blue-200 px-2 py-0.5 rounded text-xs">{{ db.engine }}</span></td>
+            <td class="px-4 py-2"><span class="bg-gray-700 text-gray-200 px-2 py-0.5 rounded text-xs">{{ db.get_type_display }}</span></td>
+            <td class="px-4 py-2 text-gray-300">{{ db.row_count }}</td>
+            <td class="px-4 py-2 text-gray-300">{{ db.human_size }}</td>
+            <td class="px-4 py-2">{% if db.is_visible %}<span class="text-green-400">Yes</span>{% else %}<span class="text-red-400">No</span>{% endif %}</td>
+            <td class="px-4 py-2 text-right space-x-1">
+                <a href="{% url 'databases:detail' db.pk %}" class="bg-blue-600 hover:bg-blue-500 text-white px-2 py-1 rounded text-xs">Detail</a>
+                <a href="{% url 'databases:edit' db.pk %}" class="bg-gray-600 hover:bg-gray-500 text-white px-2 py-1 rounded text-xs">Edit</a>
+                <a href="{% url 'databases:delete' db.pk %}" class="bg-red-600 hover:bg-red-500 text-white px-2 py-1 rounded text-xs">Delete</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="7" class="px-4 py-8 text-center text-gray-500">No databases yet.</td></tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    </div>
+</div>
+{% endblock %}
