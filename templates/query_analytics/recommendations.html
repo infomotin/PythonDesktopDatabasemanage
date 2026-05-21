@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Recommendations - DBMS Pro{% endblock %}
+{% block content %}
+<div class="p-6">
+    <h1 class="text-2xl font-bold mb-4 text-white">Index Recommendations & AI Suggestions</h1>
+    <div class="bg-gray-800 rounded-lg border border-gray-700 divide-y divide-gray-700">
+    {% for rec in recommendations %}
+    <div class="p-4">
+        <div class="flex items-start justify-between">
+            <div>
+                <div class="flex items-center gap-2 mb-1">
+                    <h3 class="font-semibold text-sm">{{ rec.table_name|capfirst }}.{% for c in rec.column_names %}{{ c }}{% if not forloop.last %}, {% endif %}{% endfor %}</h3>
+                    <span class="bg-{% if rec.priority == 'critical' %}red{% elif rec.priority == 'high' %}orange{% else %}gray{% endif %}-900 text-{% if rec.priority == 'critical' %}red{% elif rec.priority == 'high' %}orange{% else %}gray{% endif %}-200 px-2 py-0.5 rounded text-xs">{{ rec.priority }}</span>
+                    <span class="bg-blue-900 text-blue-200 px-2 py-0.5 rounded text-xs">{{ rec.index_type }}</span>
+                    <span class="text-xs px-2 py-0.5 rounded {% if rec.estimated_improvement_pct > 50 %}bg-green-900 text-green-200{% elif rec.estimated_improvement_pct > 0 %}bg-green-900/50 text-green-200{% else %}bg-gray-700 text-gray-300{% endif %}">~{{ rec.estimated_improvement_pct }}% faster</span>
+                </div>
+                <p class="text-gray-400 text-sm mb-2">{{ rec.rationale }}</p>
+                <pre class="bg-gray-900 rounded p-2 text-xs text-green-300 overflow-x-auto font-mono">{{ rec.suggested_ddl }}</pre>
+            </div>
+            <div class="flex flex-col gap-2 min-w-[100px] ml-4">
+                <span class="text-center text-xs bg-gray-700 text-gray-300 py-1 rounded">Score: {{ rec.score }}</span>
+                <span class="text-xs text-gray-500 text-center">{{ rec.created_at|date:"M d, Y" }}</span>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="p-8 text-center text-gray-500">No recommendations available yet. Run some slow queries to generate them.</div>
+    {% endfor %}
+    </div>
+</div>
+{% endblock %}

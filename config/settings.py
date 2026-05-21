@@ -27,6 +27,7 @@ INSTALLED_APPS = [
     "crispy_forms",
     "crispy_tailwind",
     "storages",
+    "channels",
     "apps.core",
     "apps.users",
     "apps.connections",
@@ -78,6 +79,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = "config.wsgi.application"
+ASGI_APPLICATION = "config.asgi.application"
 
 DATABASES = {
     "default": {

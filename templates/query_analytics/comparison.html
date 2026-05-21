@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block title %}Performance Comparison - DBMS Pro{% endblock %}
+{% block content %}
+<div class="p-6">
+    <h1 class="text-2xl font-bold mb-4 text-white">Cross-Engine Performance Comparison</h1>
+    <div class="bg-gray-800 rounded-lg border border-gray-700 p-6 mb-4 space-y-4">
+        <h2 class="font-semibold">New Comparison</h2>
+        <form method="post" action="{% url 'query_analytics:api_compare' %}" class="space-y-3">
+            {% csrf_token %}
+            <div><label class="text-gray-400 text-sm block mb-1">SQL Query</label>
+                <textarea name="sql" id="cmp-sql" rows="3" class="w-full bg-gray-900 text-white border border-gray-600 rounded p-3 font-mono text-sm"
+                    placeholder="SELECT * FROM users WHERE created_at > NOW() - INTERVAL 30 DAY;">SELECT * FROM users LIMIT 100;</textarea>
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label class="text-gray-400 text-sm block mb-1">Engine A</label>
+                    <select name="engine_a" id="engine-a" class="bg-gray-900 text-white border border-gray-600 rounded p-2 w-full">
+                        <option value="mysql">MySQL</option><option value="postgresql">PostgreSQL</option>
+                        <option value="sqlite">SQLite</option><option value="mongodb">MongoDB</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="text-gray-400 text-sm block mb-1">Engine B</label>
+                    <select name="engine_b" id="engine-b" class="bg-gray-900 text-white border border-gray-600 rounded p-2 w-full">
+                        <option value="postgresql">PostgreSQL</option><option value="mysql">MySQL</option>
+                        <option value="sqlite">SQLite</option><option value="mongodb">MongoDB</option>
+                    </select>
+                </div>
+            </div>
+            <button type="submit" id="cmp-btn"
+                class="bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded text-sm">Compare Engines</button>
+        </form>
+    </div>
+
+    <h2 class="font-semibold text-white mb-3">Previous Comparisons</h2>
+    <div class="overflow-x-auto bg-gray-800 rounded-lg border border-gray-700">
+    <table class="w-full text-sm">
+        <thead class="bg-gray-700">
+            <tr><th class="px-4 py-3 text-left">Name</th><th class="px-4 py-3 text-left">Engine A</th>
+                <th class="px-4 py-3 text-left">Duration A</th><th class="px-4 py-3 text-left">Engine B</th>
+                <th class="px-4 py-3 text-left">Duration B</th><th class="px-4 py-3 text-left">Winner</th>
+                <th class="px-4 py-3 text-left">Delta</th><th class="px-4 py-3 text-left">Date</th></tr>
+        </thead>
+        <tbody class="divide-y divide-gray-700">
+        {% for c in comparisons %}
+        <tr class="hover:bg-gray-700">
+            <td class="px-4 py-2 font-mono text-xs truncate max-w-[180px]" title="{{ c.logical_sql|truncatechars:200 }}">{{ c.name }}</td>
+            <td class="px-4 py-2"><span class="bg-blue-900 text-blue-200 px-2 py-0.5 rounded text-xs">{{ c.engine_a }}</span></td>
+            <td class="px-4 py-2 {% if c.duration_a_ms > c.duration_b_ms %}text-red-400{% else %}text-green-400{% endif %}">{{ c.duration_a_ms }}ms</td>
+            <td class="px-4 py-2"><span class="bg-purple-900 text-purple-200 px-2 py-0.5 rounded text-xs">{{ c.engine_b }}</span></td>
+            <td class="px-4 py-2 {% if c.duration_b_ms > c.duration_a_ms %}text-red-400{% else %}text-green-400{% endif %}">{{ c.duration_b_ms }}ms</td>
+            <td class="px-4 py-2 font-semibold {% if c.winner == c.engine_a %}text-blue-400{% else %}text-purple-400{% endif %}">{{ c.winner }}</td>
+            <td class="px-4 py-2 text-gray-400">{{ c.delta_pct }}%</td>
+            <td class="px-4 py-2 text-gray-500 text-xs">{{ c.created_at|date:"Y-m-d" }}</td>
+        </tr>
+        {% empty %}<tr><td colspan="8" class="px-4 py-8 text-center text-gray-500">No comparisons run yet.</td></tr>{% endfor %}
+        </tbody>
+    </table>
+    </div>
+</div>
+<script>
+document.querySelector('#cmp-btn').addEventListener('click', function(e) {
+    var btn = e.target;
+    btn.textContent = 'Running…';
+    btn.disabled = true;
+});
+</script>
+{% endblock %}

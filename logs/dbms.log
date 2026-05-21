@@ -3,3 +3,33 @@ INFO 2026-05-21 13:39:17,125 autoreload D:\laragon\www\PythonDesktopDatabasemana
 INFO 2026-05-21 13:43:46,228 autoreload Watching for file changes with StatReloader
 INFO 2026-05-21 14:02:12,164 autoreload Watching for file changes with StatReloader
 INFO 2026-05-21 14:02:34,785 autoreload Watching for file changes with StatReloader
+INFO 2026-05-21 14:18:51,367 autoreload D:\laragon\www\PythonDesktopDatabasemanage\apps\query_analytics\apps.py changed, reloading.
+INFO 2026-05-21 14:18:52,737 autoreload Watching for file changes with StatReloader
+INFO 2026-05-21 14:19:24,238 autoreload D:\laragon\www\PythonDesktopDatabasemanage\apps\query_analytics\models.py changed, reloading.
+INFO 2026-05-21 14:19:25,208 autoreload Watching for file changes with StatReloader
+INFO 2026-05-21 14:20:34,499 autoreload D:\laragon\www\PythonDesktopDatabasemanage\config\settings.py changed, reloading.
+INFO 2026-05-21 14:20:35,047 autoreload Watching for file changes with StatReloader
+INFO 2026-05-21 14:21:14,367 autoreload D:\laragon\www\PythonDesktopDatabasemanage\config\settings.py changed, reloading.
+INFO 2026-05-21 14:21:15,027 autoreload Watching for file changes with StatReloader
+INFO 2026-05-21 14:21:44,072 autoreload D:\laragon\www\PythonDesktopDatabasemanage\apps\query_analytics\admin.py changed, reloading.
+INFO 2026-05-21 14:21:44,686 autoreload Watching for file changes with StatReloader
+INFO 2026-05-21 14:22:00,322 autoreload D:\laragon\www\PythonDesktopDatabasemanage\apps\query_analytics\models.py changed, reloading.
+INFO 2026-05-21 14:22:00,942 autoreload Watching for file changes with StatReloader
+INFO 2026-05-21 14:22:13,515 autoreload D:\laragon\www\PythonDesktopDatabasemanage\apps\query_analytics\models.py changed, reloading.
+INFO 2026-05-21 14:22:14,277 autoreload Watching for file changes with StatReloader
+INFO 2026-05-21 14:22:37,031 autoreload D:\laragon\www\PythonDesktopDatabasemanage\apps\query_analytics\models.py changed, reloading.
+INFO 2026-05-21 14:22:37,585 autoreload Watching for file changes with StatReloader
+INFO 2026-05-21 14:23:42,158 autoreload D:\laragon\www\PythonDesktopDatabasemanage\apps\query_analytics\migrations\0001_initial.py changed, reloading.
+INFO 2026-05-21 14:23:42,878 autoreload Watching for file changes with StatReloader
+INFO 2026-05-21 14:29:18,322 autoreload Watching for file changes with StatReloader
+ERROR 2026-05-21 14:29:22,181 log Invalid HTTP_HOST header: 'testserver'. You may need to add 'testserver' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\utils\deprecation.py", line 119, in __call__
+    response = self.process_request(request)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\middleware\common.py", line 48, in process_request
+    host = request.get_host()
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\http\request.py", line 202, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'testserver'. You may need to add 'testserver' to ALLOWED_HOSTS.

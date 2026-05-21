@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}Execution Plans - DBMS Pro{% endblock %}
+{% block content %}
+<div class="p-6">
+    <h1 class="text-2xl font-bold mb-4 text-white">Query Execution Plans</h1>
+    <div class="bg-gray-800 rounded-lg border border-gray-700">
+    <table class="w-full text-sm">
+        <thead class="bg-gray-700">
+            <tr><th class="px-4 py-3 text-left">Fingerprint</th><th class="px-4 py-3 text-left">Engine</th>
+                <th class="px-4 py-3 text-right">Cost</th><th class="px-4 py-3 text-right">Rows Est.</th>
+                <th class="px-4 py-3 text-right">Rows Actual</th><th class="px-4 py-3 text-left">Last Used</th></tr>
+        </thead>
+        <tbody class="divide-y divide-gray-700">
+        {% for plan in cached_plans %}
+        <tr class="hover:bg-gray-700">
+            <td class="px-4 py-2 font-mono text-xs">{{ plan.query_fingerprint|truncatechars:12 }}</td>
+            <td class="px-4 py-2"><span class="bg-blue-900 text-blue-200 px-2 py-0.5 rounded text-xs">{{ plan.database_engine }}</span></td>
+            <td class="px-4 py-2 text-right {% if plan.estimated_cost > 10000 %}text-red-400{% else %}text-gray-300{% endif %}">{{ plan.estimated_cost }}</td>
+            <td class="px-4 py-2 text-right text-gray-300">{{ plan.estimated_rows }}</td>
+            <td class="px-4 py-2 text-right text-gray-300">{{ plan.actual_rows }}</td>
+            <td class="px-4 py-2 text-gray-500 text-xs">{{ plan.last_used_at|date:"Y-m-d H:i" }}</td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="6" class="px-4 py-8 text-center text-gray-500">No cached plans. Run a query to generate one.</td></tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    </div>
+</div>
+{% endblock %}
