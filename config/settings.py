@@ -1,12 +1,16 @@
 import os
-from datetime import timedelta
+import sys
 from pathlib import Path
-from environ import Env
 
-env = Env()
-Env.read_env(os.path.join(BASE_DIR, ".env"))
-
+import environ
+env = environ.Env(
+    DEBUG=(bool, False),
+    SECURE_SSL_REDIRECT=(bool, False),
+    SESSION_COOKIE_SECURE=(bool, False),
+    CSRF_COOKIE_SECURE=(bool, False),
+)
 BASE_DIR = Path(__file__).resolve().parent.parent
+env.read_env(BASE_DIR / ".env")
 
 SECRET_KEY = env("SECRET_KEY", default="django-insecure-kilo-dbms-2024-secure-key-change-in-production")
 DEBUG = env.bool("DEBUG", default=True)
@@ -34,6 +38,7 @@ INSTALLED_APPS = [
     "apps.analytics",
     "apps.subscription",
     "apps.notifications",
+    "apps.workspaces",
 ]
 
 MIDDLEWARE = [
@@ -143,10 +148,11 @@ LOGGING = {
             "class": "logging.FileHandler",
             "filename": BASE_DIR / "logs" / "dbms.log",
             "formatter": "verbose",
-        }, "console": {"level": "DEBUG", "class": "logging.StreamHandler", "formatter": "simple"},
+        },
+        "console": {"level": "DEBUG", "class": "logging.StreamHandler", "formatter": "simple"},
     },
     "root": {"handlers": ["file"], "level": "INFO"},
-    "loggers": {"django": {"handlers": ["file"], "level": "INFO", "propagate": False}},
+    "loggers": {"django": {"handlers": ["file", "console"], "level": "INFO", "propagate": False}},
 }
 
 SECURE_SSL_REDIRECT = env.bool("SECURE_SSL_REDIRECT", default=False)

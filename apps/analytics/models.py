@@ -1,39 +1,34 @@
-import os, time
-from uuid import uuid4
-from pathlib import Path
+import uuid
 
-from .services.utils import gen(event_timestamp)
-
-import csv, itertools, json, random, uuid, time
-import hashlib, tempfile, pathlib, string
-from abc import ABCMeta, abstractmethod
-
-from pathlib import Path
-from diff_match_patch import diff_match_patch
-
-from django.apps import AppConfig
-
-class AnalyticsConfig(AppConfig):
-    default_auto_field = "django.db.models.BigAutoField"
-    name = "apps.analytics"
-
-from django.contrib.auth import get_user_model
+from django.contrib import admin
 from django.db import models
-from django.utils.crypto import get_random_string
-from .tasks import run_extraction_job, run_insight_job, run_model_job
+from django.utils.translation import gettext_lazy as _
 
 
-JOB_STATUS = {"queued", "running", "success", "failed", "canceled"}
-EXTRACT_TASKS = {True, False}
-JOB_PHASES = {"extraction", "insight", "model"}
-
-from django.conf import settings
-from django.core.cache import cache
-from django.db import models
-
-
-class BaseModel(models.Model):
-    _md_max_age = settings.CACHE_MID_MAX_AGE or 300
+class AnalyticsEvent(models.Model):
+    EVENT_TYPES = [
+        ("query", _("Query")), ("import", _("Import")),
+        ("export", _("Export")), ("seed", _("Seed")),
+        ("login", _("Login")), ("alert", _("Alert")),
+    ]
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    user = models.ForeignKey("users.User", on_delete=models.CASCADE, related_name="analytics_events", null=True, blank=True)
+    event_type = models.CharField(max_length=30, choices=EVENT_TYPES)
+    description = models.TextField(blank=True)
+    metadata = models.JSONField(default=dict, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
+        ordering = ["-created_at"]
+        verbose_name = _("Analytics Event")
+        verbose_name_plural = _("Analytics Events")
 
+    def __str__(self):
+        return f"{self.event_type} - {self.created_at:%Y-%m-%d %H:%M}"
+
+
+@admin.register(AnalyticsEvent)
+class AnalyticsEventAdmin(admin.ModelAdmin):
+    list_display = ("event_type", "user", "created_at")
+    list_filter = ("event_type", "created_at")
+    search_fields = ("description", "user__email")

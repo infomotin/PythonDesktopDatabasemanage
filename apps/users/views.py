@@ -1,80 +1,99 @@
-from django import forms
+import json, os
+from pathlib import Path
 from django.conf import settings
-from django.contrib.auth import get_user_model
-from django.contrib.auth import forms as auth_forms
-from django.contrib.auth.forms import UserCreationForm, UserChangeForm
-from django.core.exceptions import ValidationError
-from django.utils.translation import gettext_lazy as _
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib import messages
+from django.contrib.auth import authenticate, login as login_user, logout as logout_user, get_user_model
+from django.contrib.auth.decorators import login_required, user_passes_test
+from django.contrib.auth.forms import AuthenticationForm
+from django.urls import reverse
+from django.http import JsonResponse, HttpResponseRedirect, HttpResponseNotFound
+from django.views.decorators.http import require_POST, require_GET, require_http_methods
+from django.core.paginator import Paginator, EmptyPage
+from django.utils.text import slugify
+from django.db.models import Count, Q, Sum
+from django.core.mail import send_mail
 
+import logging
+logger = logging.getLogger(__name__)
 
 User = get_user_model()
 
 
-class UserAdminCreationForm(auth_forms.UserCreationForm):
-    class Meta(auth_forms.UserCreationForm.Meta):
-        model = User
-        fields = ("username", "email", "first_name", "last_name", "role", "company")
-        field_classes = {}
+@require_http_methods(["GET", "POST"])
+def login_view(request):
+    if request.user.is_authenticated:
+        return redirect("dashboard:index")
+    if request.method == "POST":
+        form = AuthenticationForm(request, data=request.POST)
+        if form.is_valid():
+            user = form.get_user()
+            login_user(request, user)
+            messages.success(request, f"Welcome back, {user.get_full_name() or user.username}!")
+            next_url = request.POST.get("next", "")
+            return redirect(next_url or "dashboard:index")
+        messages.error(request, "Invalid email or password.")
+    else:
+        form = AuthenticationForm()
+    return render(request, "users/login.html", {"form": form, "page_title": "Sign In"})
 
-    def clean_password2(self):
-        p1 = self.cleaned_data.get("password1")
-        p2 = self.cleaned_data.get("password2")
-        if p1 and p2 and p1 != p2:
-            raise ValidationError(_("The two password fields didn't match."))
-        return p2
+@login_required
+def logout_view(request):
+    logout_user(request)
+    messages.info(request, "You have been logged out.")
+    return redirect("users:login")
 
-    def save(self, commit=True):
-        user = super().save(commit=False)
-        user.email = self.cleaned_data["email"]
-        if commit:
+@require_http_methods(["GET", "POST"])
+def signup_view(request):
+    if request.user.is_authenticated:
+        return redirect("dashboard:index")
+    if request.method == "POST":
+        form = UserRegistrationForm(request.POST)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.email_verified = True
             user.save()
-        return user
+            login_user(request, user)
+            msg = f"Welcome, {user.get_full_name() or user.username}!"
+            messages.success(request, msg + " Your account has been created.")
+            try:
+                send_mail(
+                    "Welcome to DBMS Pro!", msg,
+                    settings.DEFAULT_FROM_EMAIL, [user.email], fail_silently=True,
+                )
+            except Exception:
+                pass
+            return redirect("dashboard:index")
+        messages.error(request, "Please correct the errors below.")
+    else:
+        form = UserRegistrationForm()
+    return render(request, "users/signup.html", {"form": form, "page_title": "Create Account"})
 
+@login_required
+def profile(request):
+    return render(request, "users/profile.html", {
+        "page_title": "Profile",
+        "user": request.user,
+    })
 
-class UserAdminChangeForm(auth_forms.UserChangeForm):
-    class Meta(auth_forms.UserChangeForm.Meta):
-        model = User
-        fields = [f for f in auth_forms.UserChangeForm.Meta.fields if f != "password"]
+@login_required
+@require_POST
+def edit_profile(request):
+    form = UserProfileForm(request.POST, request.FILES, instance=request.user)
+    if form.is_valid():
+        form.save()
+        messages.success(request, "Profile updated successfully.")
+    else:
+        messages.error(request, "Please correct the errors.")
+    return redirect("users:profile")
 
-
-class UserRegistrationForm(UserCreationForm):
-    email = forms.EmailField(required=True, label=_("Email"), widget=forms.EmailInput(attrs={"class": "input"}))
-    first_name = forms.CharField(required=False, label=_("First Name"), widget=forms.TextInput(attrs={"class": "input"}))
-    last_name = forms.CharField(required=False, label=_("Last Name"), widget=forms.TextInput(attrs={"class": "input"}))
-    company = forms.CharField(required=False, label=_("Company"), widget=forms.TextInput(attrs={"class": "input"}))
-    terms = forms.BooleanField(required=True, label=_("I agree to the Terms of Service"))
-
-    class Meta:
-        model = User
-        fields = ("username", "email", "first_name", "last_name", "password1", "password2", "company", "terms")
-
-    def save(self, commit=True):
-        user = super().save(commit=False)
-        user.email = self.cleaned_data["email"]
-        user.first_name = self.cleaned_data.get("first_name", "")
-        user.last_name = self.cleaned_data.get("last_name", "")
-        user.company = self.cleaned_data.get("company", "")
-        if commit:
-            user.save()
-        return user
-
-
-class UserProfileForm(forms.ModelForm):
-    class Meta:
-        model = User
-        fields = ["email", "first_name", "last_name", "phone", "company", "avatar"]
-        widgets = {
-            "email": forms.EmailInput(attrs={"class": "input", "readonly": "readonly"}),
-            "first_name": forms.TextInput(attrs={"class": "input"}),
-            "last_name": forms.TextInput(attrs={"class": "input"}),
-            "phone": forms.TextInput(attrs={"class": "input"}),
-            "company": forms.TextInput(attrs={"class": "input"}),
-            "avatar": forms.FileInput(attrs={"class": "file-input"}),
-        }
-
-
-class ChangePasswordForm(auth_forms.PasswordChangeForm):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        for field in self.fields.values():
-            field.widget.attrs = {"class": "input"}
+@login_required
+@require_POST
+def change_password(request):
+    form = ChangePasswordForm(request.user, request.POST)
+    if form.is_valid():
+        form.save()
+        messages.success(request, "Password changed successfully.")
+    else:
+        messages.error(request, "Please correct the errors.")
+    return redirect("users:profile")

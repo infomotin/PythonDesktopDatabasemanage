@@ -1,6 +1,12 @@
-def user_subscription(request):
-    if not request.user.is_authenticated:
-        return {"subscription": None, "tier_limits": {}}
-    sub = getattr(request.user, "subscription", None)
-    return {"subscription": sub, "tier_limits": getattr(sub, "tier", None) and {}}
 
+
+def user_subscription(request):
+    from apps.subscription.models import Subscription
+    if request.user.is_authenticated:
+        try:
+            sub = request.user.subscription_ref
+        except Subscription.DoesNotExist:
+            sub = None
+    else:
+        sub = None
+    return {"user_subscription": sub}

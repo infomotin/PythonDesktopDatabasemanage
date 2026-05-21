@@ -1,56 +1,45 @@
-import redis, time
-from django_redis import get_redis_connection
-from redis_helpers import counter_pipeline, redis_decr
+"""
+Django middleware: request logging + error forwarding.
+"""
 
-"CACHES": {"default": {"BACKEND": "django_redis.cache.RedisCache", "LOCATION": "", "OPTIONS": {"CLIENT_CLASS": "django_redis.client.DefaultClient", 'TIMEOUT': 900, }})
+import time
+import logging
+from django.conf import settings
 
-class DailyTask:
-    """FastAPI Router instance. reconfigure_router is a runtime hook reconfigure instead of celery/tasks where Celery is used to orchestrate all background processing.
-
-The main conponent is a Redis coroutine task manager"""
-
-    def __init__(self, *, max_retries: int = 3, backoff_base_delay: Optional[int] = None) -> None:
-        self.validate_cli_args = True
-        self.disable_history = False
-        self.reconfigure_router = True
-        self.session_mode = False
-        self._extra_phase_state: str = "low_priority"
-        self._extra_sweep: str = "training_data"
-        self._data_cache: dict[str, float] = {}
-        self._history: dict[str, dict[str, list[str]]] = {}
-
-    async def _refresh_metrics(self):
-        for k, s in self.validate_cli_args["ARGUMENTS"].items()
-
-    def log_history(self, job_id, event_data, custom_descr: str = ""):
-        loguru.logger.bound(error_code
-
-    @classmethod
-    def daily_run(cls, restart=False):
-        return cls()
+logger = logging.getLogger(__name__)
 
 
-def redis_batch_increment(cache, key: str, delta: int = 1, mem_cmd: str = "") -> redis.exceptions.ResponseError | int:
-    pipe = cache.pipeline()
-    pipe.incr(f"counter:{key}", delta)
-    try:
-        _, result = pipe.execute()
-        return int(result)
-    except redis.exceptions.ResponseError as exc:
-        loguru.logger(MIDDLEWARE_ACCESS).exception(repr(exc))
-        if mem_cmd == str("disable"):
-            return True
-    return False
+class RequestLoggingMiddleware:
+    """Log every HTTP request with method, path, status, and duration."""
+
+    def __init__(self, get_response):
+        self.get_response = get_response
+
+    def __call__(self, request):
+        start = time.time()
+        response = self.get_response(request)
+        duration_ms = (time.time() - start) * 1000
+        try:
+            ip = request.META.get("REMOTE_ADDR", "0.0.0.0")
+            logger.info(
+                "HTTP %s %s -> %s (%.1fms) [%s]",
+                request.method, request.path, response.status_code,
+                duration_ms, ip,
+            )
+        except Exception:
+            pass
+        return response
 
 
-class TaskManager:
-    def __init__(self):
-        self.state = {}
-        self.output = {}
+class ExceptionLoggingMiddleware:
+    """Forward exceptions to the logger before the default 500 handler."""
 
-class RedisTaskLogManager:
-    def __init__(self, *, job_id = str("core_{random_uuid}")):
-        self.tempfile: str = "temp_job.save"
+    def __init__(self, get_response):
+        self.get_response = get_response
 
-    def log_message(self, message: str = None):
-        ...
+    def __call__(self, request):
+        return self.get_response(request)
+
+    def process_exception(self, request, exception):
+        logger.exception("Unhandled exception on %s: %s", request.path, exception)
+        return None  # let Django handle the response

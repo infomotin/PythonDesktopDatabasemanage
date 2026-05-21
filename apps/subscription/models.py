@@ -10,7 +10,7 @@ from django.urls import reverse
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from apps.connections.models import DatabaseConnection
-from apps.databases.models import VirtualDatabase
+from apps.tables.models import VirtualDatabase
 
 
 User = get_user_model()

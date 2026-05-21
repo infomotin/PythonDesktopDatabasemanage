@@ -7,13 +7,9 @@ from django.utils.translation import gettext_lazy as _
 
 class ManagedDatabase(models.Model):
     DISPLAY_TYPES = [
-        ("table", _("Table")),
-        ("view", _("View")),
-        ("materialized_view", _("Materialized View")),
-        ("function", _("Function")),
-        ("procedure", _("Procedure")),
-        ("schema", _("Schema")),
-        ("database", _("Database")),
+        ("table", _("Table")), ("view", _("View")),
+        ("materialized_view", _("Materialized View")), ("function", _("Function")),
+        ("procedure", _("Procedure")), ("schema", _("Schema")), ("database", _("Database")),
     ]
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=255)
@@ -42,18 +38,19 @@ class ManagedDatabase(models.Model):
 
     @property
     def human_size(self):
-        if self.total_size <= 0:
+        val = self.total_size
+        if val <= 0:
             return "0 B"
         for unit in ["B", "KB", "MB", "GB", "TB"]:
-            if abs(self.total_size) < 1024:
-                return f"{self.total_size:.1f} {unit}"
-            self.total_size /= 1024
-        return f"{self.total_size:.1f} PB"
+            if abs(val) < 1024:
+                return f"{val:.1f} {unit}"
+            val /= 1024
+        return f"{val:.1f} PB"
 
 
 class DataStoragePointModel(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    database = models.ForeignKey(ManagedDatabase, on_delete=models.CASCADE, related_name="tables")  # Corrected
+    database = models.ForeignKey(ManagedDatabase, on_delete=models.CASCADE, related_name="tables")
     name = models.CharField(max_length=255)
     owner = models.CharField(max_length=255, blank=True)
     engine = models.CharField(max_length=50, blank=True)
@@ -78,13 +75,14 @@ class DataStoragePointModel(models.Model):
 
     @property
     def human_size(self):
-        if self.total_size <= 0:
+        val = self.total_size
+        if val <= 0:
             return "0 B"
         for unit in ["B", "KB", "MB", "GB", "TB"]:
-            if abs(self.total_size) < 1024:
-                return f"{self.total_size:.1f} {unit}"
-            self.total_size /= 1024
-        return f"{self.total_size:.1f} PB"
+            if abs(val) < 1024:
+                return f"{val:.1f} {unit}"
+            val /= 1024
+        return f"{val:.1f} PB"
 
 
 @admin.register(ManagedDatabase)
@@ -100,5 +98,3 @@ class DSPAdmin(admin.ModelAdmin):
     list_display = ("name", "database", "owner", "engine", "row_count", "total_size", "is_visible")
     list_filter = ("is_visible", "is_deleted", "created_at")
     search_fields = ("name", "owner", "engine")
-
-

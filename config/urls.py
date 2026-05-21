@@ -1,8 +1,8 @@
-from django.contrib import admin
-from django.urls import path, include
+from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
-from django.contrib.auth import views as auth_views
+from django.contrib import admin
+from django.urls import path, include
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -17,19 +17,11 @@ urlpatterns = [
     path("analytics/", include("apps.analytics.urls")),
     path("subscription/", include("apps.subscription.urls")),
     path("notifications/", include("apps.notifications.urls")),
+    path("queries/", include("apps.queries.urls")),
     path("api/", include("apps.core.api_urls")),
-    path("password-reset/", auth_views.PasswordResetView.as_view(
-        template_name="users/password_reset.html"
-    ), name="password_reset"),
-    path("password-reset/done/", auth_views.PasswordResetDoneView.as_view(
-        template_name="users/password_reset_done.html"
-    ), name="password_reset_done"),
-    path("reset/<uidb64>/<token>/", auth_views.PasswordResetConfirmView.as_view(
-        template_name="users/password_reset_confirm.html"
-    ), name="password_reset_confirm"),
-    path("reset/done/", auth_views.PasswordResetCompleteView.as_view(
-        template_name="users/password_reset_complete.html"
-    ), name="password_reset_complete"),
+    path("api/", include("apps.connections.urls")),
+    path("api/", include("apps.databases.urls")),
+    path("password-reset/", include("django.contrib.auth.urls")),
 ]
 
 if settings.DEBUG:

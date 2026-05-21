@@ -3,8 +3,6 @@ import uuid
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-from apps.connections.models import DatabaseConnection
-from apps.subscription.models import Subscription
 
 
 class User(AbstractUser):
@@ -52,37 +50,42 @@ class User(AbstractUser):
 
     @property
     def subscription(self):
-        return getattr(self, "subscription", None)
+        from apps.subscription.models import Subscription
+        try:
+            return self.subscription_ref
+        except Subscription.DoesNotExist:
+            return None
 
-    def can_access_database(self, database: DatabaseConnection) -> bool:
+    def can_access_database(self, database) -> bool:
+        from apps.connections.models import DatabaseConnection
         if self.is_administrator:
             return True
-        if not hasattr(self, "subscription") or not self.subscription:
+        if not hasattr(self, "subscription_ref"):
+            return False
+        sub = getattr(self, "subscription_ref", None)
+        if not sub:
             return False
         return (
-            self.subscription.tier == "enterprise" or database.user_id == self.id
+            getattr(sub.tier, "name", "") == "enterprise"
+            or getattr(database, "user_id", None) == self.id
         )
 
     def get_max_databases(self) -> int:
         if self.is_administrator:
             return -1
-        if not hasattr(self, "subscription") or not self.subscription:
+        try:
+            sub = self.subscription_ref
+        except Exception:
             return 1
-        return self.subscription.max_databases
-
-    def can_max_databases(self) -> bool:
-        if self.is_administrator:
-            return True
-        if not hasattr(self, "subscription") or not self.subscription:
-            from apps.subscription.models import SubscriptionTier
-            return any(
-                DatabaseConnection.objects.filter(user=self).count()
-                < tier["max_databases"]
-                for tier in SubscriptionTier.TIERS.values()
-            )
-        return True
+        if not sub or not sub.tier:
+            return 1
+        return sub.tier.max_databases
 
     def can_access_feature(self, feature: str) -> bool:
-        if not hasattr(self, "subscription") or not self.subscription:
+        try:
+            sub = self.subscription_ref
+        except Exception:
             return feature in ("query_builder", "analytics")
-        return self.subscription.has_feature(feature)
+        if not sub or not sub.tier:
+            return feature in ("query_builder", "analytics")
+        return bool(getattr(sub.tier, f"allow_{feature}", False))

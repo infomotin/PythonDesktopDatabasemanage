@@ -3,7 +3,7 @@ import uuid
 from django.apps import AppConfig
 
 
-class InvitesConfig(AppConfig):
+class InviteConfig(AppConfig):
     default_auto_field = "django.db.models.BigAutoField"
-    name = "apps.invites"
+    name = "apps.invite"
 
