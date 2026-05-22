@@ -20,12 +20,18 @@ User = None
 
 
 class DatabaseListView(LoginRequiredMixin, ListView):
+    model = ManagedDatabase
     template_name = "databases/database_list.html"
     context_object_name = "databases"
     paginate_by = 20
 
     def get_queryset(self):
         return ManagedDatabase.objects.filter(owner=self.request.user)
+
+    def get_context_data(self, **kwargs):
+        ctx = super().get_context_data(**kwargs)
+        ctx["page_title"] = "Databases"
+        return ctx
 
 
 class DatabaseCreateView(LoginRequiredMixin, CreateView):

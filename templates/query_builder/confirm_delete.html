@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Delete Query - DBMS Pro{% endblock %}
+{% block content %}
+<div class="p-6 max-w-3xl">
+    <h1 class="text-2xl font-bold mb-4">Delete saved query</h1>
+    <p class="text-gray-400 mb-6">Are you sure you want to delete <strong>{{ object.name }}</strong>?</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="bg-red-600 hover:bg-red-500 text-white px-4 py-2 rounded">Delete</button>
+        <a href="{% url 'query_builder:saved' %}" class="ml-3 text-gray-300 hover:text-white">Cancel</a>
+    </form>
+</div>
+{% endblock %}

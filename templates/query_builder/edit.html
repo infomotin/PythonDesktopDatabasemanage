@@ -1,8 +1,8 @@
 {% extends "base.html" %}
-{% block title %}New Saved Query - DBMS Pro{% endblock %}
+{% block title %}Edit Query - DBMS Pro{% endblock %}
 {% block content %}
 <div class="p-6 max-w-4xl">
-    <h1 class="text-2xl font-bold mb-4">Create Saved Query</h1>
+    <h1 class="text-2xl font-bold mb-4">Edit Saved Query</h1>
     <form method="post" class="bg-gray-800 rounded-lg border border-gray-700 p-6 space-y-4">
         {% csrf_token %}
         {{ form.non_field_errors }}
@@ -33,7 +33,7 @@
             {{ form.visibility }}
         </div>
         <div class="flex gap-2">
-            <button type="submit" class="bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded">Save Query</button>
+            <button type="submit" class="bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded">Save Changes</button>
             <a href="{% url 'query_builder:saved' %}" class="bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded">Cancel</a>
         </div>
     </form>

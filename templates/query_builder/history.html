@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Query History - DBMS Pro{% endblock %}
+{% block content %}
+<div class="p-6 max-w-6xl">
+    <h1 class="text-2xl font-bold mb-4">Query History</h1>
+    <div class="bg-gray-800 rounded-lg border border-gray-700 overflow-hidden">
+        <table class="w-full text-sm">
+            <thead class="bg-gray-700"><tr><th class="px-4 py-3 text-left">Query</th><th class="px-4 py-3 text-left">Connection</th><th class="px-4 py-3 text-left">Status</th><th class="px-4 py-3 text-left">Rows</th><th class="px-4 py-3 text-left">Executed</th></tr></thead>
+            <tbody class="divide-y divide-gray-700">
+                {% for item in history %}
+                <tr class="hover:bg-gray-700">
+                    <td class="px-4 py-3 font-mono text-xs truncate">{{ item.query|truncatechars:80 }}</td>
+                    <td class="px-4 py-3">{{ item.connection.name if item.connection else 'N/A' }}</td>
+                    <td class="px-4 py-3">{% if item.success %}<span class="text-green-400">Success</span>{% else %}<span class="text-red-400">Failed</span>{% endif %}</td>
+                    <td class="px-4 py-3">{{ item.row_count }}</td>
+                    <td class="px-4 py-3">{{ item.completed_at|date:"Y-m-d H:i" }}</td>
+                </tr>
+                {% empty %}
+                <tr><td colspan="5" class="px-4 py-8 text-center text-gray-500">No query history available.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

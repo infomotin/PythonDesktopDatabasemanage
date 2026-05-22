@@ -23,6 +23,7 @@
             <td class="px-4 py-2">{% if db.is_visible %}<span class="text-green-400">Yes</span>{% else %}<span class="text-red-400">No</span>{% endif %}</td>
             <td class="px-4 py-2 text-right space-x-1">
                 <a href="{% url 'databases:detail' db.pk %}" class="bg-blue-600 hover:bg-blue-500 text-white px-2 py-1 rounded text-xs">Detail</a>
+                <a href="{% url 'databases:tables' db.pk %}" class="bg-indigo-600 hover:bg-indigo-500 text-white px-2 py-1 rounded text-xs">Tables</a>
                 <a href="{% url 'databases:edit' db.pk %}" class="bg-gray-600 hover:bg-gray-500 text-white px-2 py-1 rounded text-xs">Edit</a>
                 <a href="{% url 'databases:delete' db.pk %}" class="bg-red-600 hover:bg-red-500 text-white px-2 py-1 rounded text-xs">Delete</a>
             </td>
