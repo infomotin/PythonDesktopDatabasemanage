@@ -1387,3 +1387,272 @@ Traceback (most recent call last):
 django.template.exceptions.TemplateDoesNotExist: connections/connection_test.html
 INFO 2026-05-22 08:49:16,719 middleware HTTP GET /connections/3d96c5d9-f2ec-4ba2-b374-ecefa6391f72/test/ -> 500 (45.4ms) [127.0.0.1]
 ERROR 2026-05-22 08:49:16,720 basehttp "GET /connections/3d96c5d9-f2ec-4ba2-b374-ecefa6391f72/test/ HTTP/1.1" 500 101400
+ERROR 2026-05-22 08:50:00,223 middleware Unhandled exception on /connections/3d96c5d9-f2ec-4ba2-b374-ecefa6391f72/test/: connections/connection_test.html
+Traceback (most recent call last):
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\response.py", line 90, in rendered_content
+    template = self.resolve_template(self.template_name)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\response.py", line 72, in resolve_template
+    return select_template(template, using=self.using)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\loader.py", line 47, in select_template
+    raise TemplateDoesNotExist(", ".join(template_name_list), chain=chain)
+django.template.exceptions.TemplateDoesNotExist: connections/connection_test.html
+ERROR 2026-05-22 08:50:00,254 log Internal Server Error: /connections/3d96c5d9-f2ec-4ba2-b374-ecefa6391f72/test/
+Traceback (most recent call last):
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\response.py", line 90, in rendered_content
+    template = self.resolve_template(self.template_name)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\response.py", line 72, in resolve_template
+    return select_template(template, using=self.using)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\loader.py", line 47, in select_template
+    raise TemplateDoesNotExist(", ".join(template_name_list), chain=chain)
+django.template.exceptions.TemplateDoesNotExist: connections/connection_test.html
+INFO 2026-05-22 08:50:00,255 middleware HTTP GET /connections/3d96c5d9-f2ec-4ba2-b374-ecefa6391f72/test/ -> 500 (36.0ms) [127.0.0.1]
+ERROR 2026-05-22 08:50:00,255 basehttp "GET /connections/3d96c5d9-f2ec-4ba2-b374-ecefa6391f72/test/ HTTP/1.1" 500 101537
+ERROR 2026-05-22 08:50:01,590 middleware Unhandled exception on /connections/3d96c5d9-f2ec-4ba2-b374-ecefa6391f72/test/: connections/connection_test.html
+Traceback (most recent call last):
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\response.py", line 90, in rendered_content
+    template = self.resolve_template(self.template_name)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\response.py", line 72, in resolve_template
+    return select_template(template, using=self.using)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\loader.py", line 47, in select_template
+    raise TemplateDoesNotExist(", ".join(template_name_list), chain=chain)
+django.template.exceptions.TemplateDoesNotExist: connections/connection_test.html
+ERROR 2026-05-22 08:50:01,612 log Internal Server Error: /connections/3d96c5d9-f2ec-4ba2-b374-ecefa6391f72/test/
+Traceback (most recent call last):
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\response.py", line 90, in rendered_content
+    template = self.resolve_template(self.template_name)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\response.py", line 72, in resolve_template
+    return select_template(template, using=self.using)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\loader.py", line 47, in select_template
+    raise TemplateDoesNotExist(", ".join(template_name_list), chain=chain)
+django.template.exceptions.TemplateDoesNotExist: connections/connection_test.html
+INFO 2026-05-22 08:50:01,612 middleware HTTP GET /connections/3d96c5d9-f2ec-4ba2-b374-ecefa6391f72/test/ -> 500 (25.8ms) [127.0.0.1]
+ERROR 2026-05-22 08:50:01,614 basehttp "GET /connections/3d96c5d9-f2ec-4ba2-b374-ecefa6391f72/test/ HTTP/1.1" 500 101537
+INFO 2026-05-22 08:50:10,971 middleware HTTP GET /connections/3d96c5d9-f2ec-4ba2-b374-ecefa6391f72/execute/ -> 200 (24.6ms) [127.0.0.1]
+INFO 2026-05-22 08:50:10,972 basehttp "GET /connections/3d96c5d9-f2ec-4ba2-b374-ecefa6391f72/execute/ HTTP/1.1" 200 3000
+ERROR 2026-05-22 08:50:12,893 middleware Unhandled exception on /connections/3d96c5d9-f2ec-4ba2-b374-ecefa6391f72/execute/: Reverse for 'execute' with no arguments not found. 1 pattern(s) tried: ['connections/(?P<pk>[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})/execute/\\Z']
+Traceback (most recent call last):
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\views\generic\base.py", line 105, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\contrib\auth\mixins.py", line 73, in dispatch
+    return super().dispatch(request, *args, **kwargs)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\views\generic\base.py", line 144, in dispatch
+    return handler(request, *args, **kwargs)
+  File "D:\laragon\www\PythonDesktopDatabasemanage\apps\connections\views.py", line 160, in post
+    return redirect("connections:execute")
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\shortcuts.py", line 51, in redirect
+    resolve_url(to, *args, **kwargs),
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\shortcuts.py", line 184, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\urls\base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\urls\resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'execute' with no arguments not found. 1 pattern(s) tried: ['connections/(?P<pk>[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})/execute/\\Z']
+ERROR 2026-05-22 08:50:12,940 log Internal Server Error: /connections/3d96c5d9-f2ec-4ba2-b374-ecefa6391f72/execute/
+Traceback (most recent call last):
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\views\generic\base.py", line 105, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\contrib\auth\mixins.py", line 73, in dispatch
+    return super().dispatch(request, *args, **kwargs)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\views\generic\base.py", line 144, in dispatch
+    return handler(request, *args, **kwargs)
+  File "D:\laragon\www\PythonDesktopDatabasemanage\apps\connections\views.py", line 160, in post
+    return redirect("connections:execute")
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\shortcuts.py", line 51, in redirect
+    resolve_url(to, *args, **kwargs),
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\shortcuts.py", line 184, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\urls\base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\urls\resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'execute' with no arguments not found. 1 pattern(s) tried: ['connections/(?P<pk>[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})/execute/\\Z']
+INFO 2026-05-22 08:50:12,941 middleware HTTP POST /connections/3d96c5d9-f2ec-4ba2-b374-ecefa6391f72/execute/ -> 500 (55.5ms) [127.0.0.1]
+ERROR 2026-05-22 08:50:12,942 basehttp "POST /connections/3d96c5d9-f2ec-4ba2-b374-ecefa6391f72/execute/ HTTP/1.1" 500 124526
+INFO 2026-05-22 08:50:15,216 middleware HTTP GET /connections/3d96c5d9-f2ec-4ba2-b374-ecefa6391f72/execute/ -> 200 (11.5ms) [127.0.0.1]
+INFO 2026-05-22 08:50:15,217 basehttp "GET /connections/3d96c5d9-f2ec-4ba2-b374-ecefa6391f72/execute/ HTTP/1.1" 200 3148
+INFO 2026-05-22 08:50:42,027 middleware HTTP GET /connections/3d96c5d9-f2ec-4ba2-b374-ecefa6391f72/execute/ -> 200 (7.0ms) [127.0.0.1]
+INFO 2026-05-22 08:50:42,027 basehttp "GET /connections/3d96c5d9-f2ec-4ba2-b374-ecefa6391f72/execute/ HTTP/1.1" 200 3000
+INFO 2026-05-22 08:50:42,730 middleware HTTP GET /connections/3d96c5d9-f2ec-4ba2-b374-ecefa6391f72/execute/ -> 200 (6.5ms) [127.0.0.1]
+INFO 2026-05-22 08:50:42,731 basehttp "GET /connections/3d96c5d9-f2ec-4ba2-b374-ecefa6391f72/execute/ HTTP/1.1" 200 3000
+INFO 2026-05-22 08:50:42,962 middleware HTTP GET /connections/3d96c5d9-f2ec-4ba2-b374-ecefa6391f72/execute/ -> 200 (6.7ms) [127.0.0.1]
+INFO 2026-05-22 08:50:42,963 basehttp "GET /connections/3d96c5d9-f2ec-4ba2-b374-ecefa6391f72/execute/ HTTP/1.1" 200 3000
+INFO 2026-05-22 08:50:43,242 middleware HTTP GET /connections/3d96c5d9-f2ec-4ba2-b374-ecefa6391f72/execute/ -> 200 (7.5ms) [127.0.0.1]
+INFO 2026-05-22 08:50:43,243 basehttp "GET /connections/3d96c5d9-f2ec-4ba2-b374-ecefa6391f72/execute/ HTTP/1.1" 200 3000
+INFO 2026-05-22 08:50:44,068 middleware HTTP GET /connections/3d96c5d9-f2ec-4ba2-b374-ecefa6391f72/execute/ -> 200 (10.1ms) [127.0.0.1]
+INFO 2026-05-22 08:50:44,069 basehttp "GET /connections/3d96c5d9-f2ec-4ba2-b374-ecefa6391f72/execute/ HTTP/1.1" 200 3000
+INFO 2026-05-22 08:50:44,347 middleware HTTP GET /connections/3d96c5d9-f2ec-4ba2-b374-ecefa6391f72/execute/ -> 200 (8.0ms) [127.0.0.1]
+INFO 2026-05-22 08:50:44,348 basehttp "GET /connections/3d96c5d9-f2ec-4ba2-b374-ecefa6391f72/execute/ HTTP/1.1" 200 3000
+INFO 2026-05-22 08:50:44,901 middleware HTTP GET /connections/3d96c5d9-f2ec-4ba2-b374-ecefa6391f72/execute/ -> 200 (8.6ms) [127.0.0.1]
+INFO 2026-05-22 08:50:44,901 basehttp "GET /connections/3d96c5d9-f2ec-4ba2-b374-ecefa6391f72/execute/ HTTP/1.1" 200 3000
+INFO 2026-05-22 08:50:49,349 middleware HTTP GET /connections/ -> 200 (11.4ms) [127.0.0.1]
+INFO 2026-05-22 08:50:49,350 basehttp "GET /connections/ HTTP/1.1" 200 4280
+INFO 2026-05-22 08:50:51,101 middleware HTTP GET /connections/3d96c5d9-f2ec-4ba2-b374-ecefa6391f72/ -> 200 (8.1ms) [127.0.0.1]
+INFO 2026-05-22 08:50:51,102 basehttp "GET /connections/3d96c5d9-f2ec-4ba2-b374-ecefa6391f72/ HTTP/1.1" 200 4024
+INFO 2026-05-22 08:50:53,368 middleware HTTP GET /connections/3d96c5d9-f2ec-4ba2-b374-ecefa6391f72/edit/ -> 200 (70.4ms) [127.0.0.1]
+INFO 2026-05-22 08:50:53,369 basehttp "GET /connections/3d96c5d9-f2ec-4ba2-b374-ecefa6391f72/edit/ HTTP/1.1" 200 5243
+INFO 2026-05-22 08:51:46,652 middleware HTTP POST /connections/3d96c5d9-f2ec-4ba2-b374-ecefa6391f72/edit/ -> 302 (33.7ms) [127.0.0.1]
+INFO 2026-05-22 08:51:46,652 basehttp "POST /connections/3d96c5d9-f2ec-4ba2-b374-ecefa6391f72/edit/ HTTP/1.1" 302 0
+INFO 2026-05-22 08:51:46,665 middleware HTTP GET /connections/ -> 200 (9.9ms) [127.0.0.1]
+INFO 2026-05-22 08:51:46,665 basehttp "GET /connections/ HTTP/1.1" 200 4449
+INFO 2026-05-22 08:51:51,731 middleware HTTP GET /connections/3d96c5d9-f2ec-4ba2-b374-ecefa6391f72/ -> 200 (7.7ms) [127.0.0.1]
+INFO 2026-05-22 08:51:51,732 basehttp "GET /connections/3d96c5d9-f2ec-4ba2-b374-ecefa6391f72/ HTTP/1.1" 200 4028
+INFO 2026-05-22 08:51:59,004 middleware HTTP GET /connections/ -> 200 (8.9ms) [127.0.0.1]
+INFO 2026-05-22 08:51:59,004 basehttp "GET /connections/ HTTP/1.1" 200 4284
+ERROR 2026-05-22 08:52:01,006 middleware Unhandled exception on /connections/3d96c5d9-f2ec-4ba2-b374-ecefa6391f72/test/: connections/connection_test.html
+Traceback (most recent call last):
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\response.py", line 90, in rendered_content
+    template = self.resolve_template(self.template_name)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\response.py", line 72, in resolve_template
+    return select_template(template, using=self.using)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\loader.py", line 47, in select_template
+    raise TemplateDoesNotExist(", ".join(template_name_list), chain=chain)
+django.template.exceptions.TemplateDoesNotExist: connections/connection_test.html
+ERROR 2026-05-22 08:52:01,027 log Internal Server Error: /connections/3d96c5d9-f2ec-4ba2-b374-ecefa6391f72/test/
+Traceback (most recent call last):
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\response.py", line 90, in rendered_content
+    template = self.resolve_template(self.template_name)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\response.py", line 72, in resolve_template
+    return select_template(template, using=self.using)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\loader.py", line 47, in select_template
+    raise TemplateDoesNotExist(", ".join(template_name_list), chain=chain)
+django.template.exceptions.TemplateDoesNotExist: connections/connection_test.html
+INFO 2026-05-22 08:52:01,028 middleware HTTP GET /connections/3d96c5d9-f2ec-4ba2-b374-ecefa6391f72/test/ -> 500 (25.1ms) [127.0.0.1]
+ERROR 2026-05-22 08:52:01,028 basehttp "GET /connections/3d96c5d9-f2ec-4ba2-b374-ecefa6391f72/test/ HTTP/1.1" 500 101400
+INFO 2026-05-22 08:52:07,027 middleware HTTP GET /databases/ -> 200 (20.5ms) [127.0.0.1]
+INFO 2026-05-22 08:52:07,028 basehttp "GET /databases/ HTTP/1.1" 200 3202
+INFO 2026-05-22 08:52:09,149 middleware HTTP GET /connections/ -> 200 (9.3ms) [127.0.0.1]
+INFO 2026-05-22 08:52:09,150 basehttp "GET /connections/ HTTP/1.1" 200 4284
+INFO 2026-05-22 08:52:09,947 middleware HTTP GET / -> 200 (9.1ms) [127.0.0.1]
+INFO 2026-05-22 08:52:09,947 basehttp "GET / HTTP/1.1" 200 3619
+INFO 2026-05-22 08:52:13,310 middleware HTTP GET /tables/ -> 200 (12.1ms) [127.0.0.1]
+INFO 2026-05-22 08:52:13,310 basehttp "GET /tables/ HTTP/1.1" 200 2945
+INFO 2026-05-22 08:52:14,786 middleware HTTP GET /query-builder/ -> 200 (8.4ms) [127.0.0.1]
+INFO 2026-05-22 08:52:14,787 basehttp "GET /query-builder/ HTTP/1.1" 200 4298
+INFO 2026-05-22 08:52:16,858 middleware HTTP GET /import-export/ -> 200 (6.5ms) [127.0.0.1]
+INFO 2026-05-22 08:52:16,859 basehttp "GET /import-export/ HTTP/1.1" 200 3578
+INFO 2026-05-22 08:52:23,323 middleware HTTP GET /seeding/ -> 200 (8.9ms) [127.0.0.1]
+INFO 2026-05-22 08:52:23,324 basehttp "GET /seeding/ HTTP/1.1" 200 2657
+INFO 2026-05-22 08:52:24,994 middleware HTTP GET /analytics/ -> 200 (20.3ms) [127.0.0.1]
+INFO 2026-05-22 08:52:24,994 basehttp "GET /analytics/ HTTP/1.1" 200 3470
+INFO 2026-05-22 08:52:36,345 middleware HTTP GET /connections/ -> 200 (12.4ms) [127.0.0.1]
+INFO 2026-05-22 08:52:36,346 basehttp "GET /connections/ HTTP/1.1" 200 4284
+ERROR 2026-05-22 08:52:41,323 middleware Unhandled exception on /connections/3d96c5d9-f2ec-4ba2-b374-ecefa6391f72/test/: connections/connection_test.html
+Traceback (most recent call last):
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\response.py", line 90, in rendered_content
+    template = self.resolve_template(self.template_name)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\response.py", line 72, in resolve_template
+    return select_template(template, using=self.using)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\loader.py", line 47, in select_template
+    raise TemplateDoesNotExist(", ".join(template_name_list), chain=chain)
+django.template.exceptions.TemplateDoesNotExist: connections/connection_test.html
+ERROR 2026-05-22 08:52:41,343 log Internal Server Error: /connections/3d96c5d9-f2ec-4ba2-b374-ecefa6391f72/test/
+Traceback (most recent call last):
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\response.py", line 90, in rendered_content
+    template = self.resolve_template(self.template_name)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\response.py", line 72, in resolve_template
+    return select_template(template, using=self.using)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\loader.py", line 47, in select_template
+    raise TemplateDoesNotExist(", ".join(template_name_list), chain=chain)
+django.template.exceptions.TemplateDoesNotExist: connections/connection_test.html
+INFO 2026-05-22 08:52:41,344 middleware HTTP GET /connections/3d96c5d9-f2ec-4ba2-b374-ecefa6391f72/test/ -> 500 (29.4ms) [127.0.0.1]
+ERROR 2026-05-22 08:52:41,344 basehttp "GET /connections/3d96c5d9-f2ec-4ba2-b374-ecefa6391f72/test/ HTTP/1.1" 500 101400
+INFO 2026-05-22 08:55:53,464 middleware HTTP GET /notifications/ -> 200 (10.0ms) [127.0.0.1]
+INFO 2026-05-22 08:55:53,466 basehttp "GET /notifications/ HTTP/1.1" 200 2889
+INFO 2026-05-22 08:55:54,352 middleware HTTP GET /analytics/ -> 200 (7.2ms) [127.0.0.1]
+INFO 2026-05-22 08:55:54,353 basehttp "GET /analytics/ HTTP/1.1" 200 3470
+INFO 2026-05-22 08:55:55,648 middleware HTTP GET /seeding/ -> 200 (4.1ms) [127.0.0.1]
+INFO 2026-05-22 08:55:55,649 basehttp "GET /seeding/ HTTP/1.1" 200 2657
+INFO 2026-05-22 08:55:56,843 middleware HTTP GET /seeding/ -> 200 (7.5ms) [127.0.0.1]
+INFO 2026-05-22 08:55:56,843 basehttp "GET /seeding/ HTTP/1.1" 200 2657
+INFO 2026-05-22 08:55:57,288 middleware HTTP GET /import-export/ -> 200 (5.1ms) [127.0.0.1]
+INFO 2026-05-22 08:55:57,289 basehttp "GET /import-export/ HTTP/1.1" 200 3578
+INFO 2026-05-22 08:55:58,381 middleware HTTP GET /query-builder/ -> 200 (10.0ms) [127.0.0.1]
+INFO 2026-05-22 08:55:58,382 basehttp "GET /query-builder/ HTTP/1.1" 200 4298
+INFO 2026-05-22 08:55:58,960 middleware HTTP GET /tables/ -> 200 (5.9ms) [127.0.0.1]
+INFO 2026-05-22 08:55:58,961 basehttp "GET /tables/ HTTP/1.1" 200 2945
+INFO 2026-05-22 08:55:59,673 middleware HTTP GET /databases/ -> 200 (7.1ms) [127.0.0.1]
+INFO 2026-05-22 08:55:59,674 basehttp "GET /databases/ HTTP/1.1" 200 3202
+INFO 2026-05-22 08:56:00,747 middleware HTTP GET /connections/ -> 200 (9.0ms) [127.0.0.1]
+INFO 2026-05-22 08:56:00,747 basehttp "GET /connections/ HTTP/1.1" 200 4284
+INFO 2026-05-22 08:59:40,430 autoreload Watching for file changes with StatReloader
+INFO 2026-05-22 09:03:27,565 middleware HTTP GET / -> 200 (5.3ms) [127.0.0.1]
+INFO 2026-05-22 09:03:27,566 basehttp "GET / HTTP/1.1" 200 3619
+INFO 2026-05-22 09:03:32,042 middleware HTTP GET /connections/ -> 200 (15.5ms) [127.0.0.1]
+INFO 2026-05-22 09:03:32,042 basehttp "GET /connections/ HTTP/1.1" 200 4284
+ERROR 2026-05-22 09:03:37,992 middleware Unhandled exception on /connections/3d96c5d9-f2ec-4ba2-b374-ecefa6391f72/test/: connections/connection_test.html
+Traceback (most recent call last):
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\response.py", line 90, in rendered_content
+    template = self.resolve_template(self.template_name)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\response.py", line 72, in resolve_template
+    return select_template(template, using=self.using)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\loader.py", line 47, in select_template
+    raise TemplateDoesNotExist(", ".join(template_name_list), chain=chain)
+django.template.exceptions.TemplateDoesNotExist: connections/connection_test.html
+ERROR 2026-05-22 09:03:38,011 log Internal Server Error: /connections/3d96c5d9-f2ec-4ba2-b374-ecefa6391f72/test/
+Traceback (most recent call last):
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\response.py", line 90, in rendered_content
+    template = self.resolve_template(self.template_name)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\response.py", line 72, in resolve_template
+    return select_template(template, using=self.using)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\loader.py", line 47, in select_template
+    raise TemplateDoesNotExist(", ".join(template_name_list), chain=chain)
+django.template.exceptions.TemplateDoesNotExist: connections/connection_test.html
+INFO 2026-05-22 09:03:38,011 middleware HTTP GET /connections/3d96c5d9-f2ec-4ba2-b374-ecefa6391f72/test/ -> 500 (24.1ms) [127.0.0.1]
+ERROR 2026-05-22 09:03:38,012 basehttp "GET /connections/3d96c5d9-f2ec-4ba2-b374-ecefa6391f72/test/ HTTP/1.1" 500 101400
