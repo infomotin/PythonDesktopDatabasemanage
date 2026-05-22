@@ -26,7 +26,7 @@ class SubscriptionDashboard(LoginRequiredMixin, TemplateView):
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
         try:
-            sub = self.request.user.subscription_ref
+            sub = self.request.user.subscription
         except Exception:
             sub = None
         ctx["subscription"] = sub
@@ -41,7 +41,7 @@ class PricingPage(TemplateView):
         ctx = super().get_context_data(**kwargs)
         ctx["tiers"] = SubscriptionTier.objects.filter(is_active=True)
         try:
-            ctx["current_tier"] = self.request.user.subscription_ref.tier
+            ctx["current_tier"] = self.request.user.subscription.tier
         except Exception:
             ctx["current_tier"] = None
         return ctx
@@ -54,7 +54,7 @@ class BillingHistory(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         try:
-            sub = self.request.user.subscription_ref
+            sub = self.request.user.subscription
             return BillingEvent.objects.filter(subscription=sub).order_by("-created_at")
         except Exception:
             return BillingEvent.objects.none()
@@ -63,7 +63,7 @@ class BillingHistory(LoginRequiredMixin, ListView):
 class UpgradeSubscription(LoginRequiredMixin, View):
     def post(self, request, tier):
         try:
-            sub = request.user.subscription_ref
+            sub = request.user.subscription
         except Exception:
             sub = None
         if sub:
@@ -94,7 +94,7 @@ class PaymentSuccess(LoginRequiredMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
-        ctx["subscription"] = getattr(request.user, "subscription_ref", None)
+        ctx["subscription"] = getattr(request.user, "subscription", None)
         return ctx
 
 
@@ -128,7 +128,7 @@ class UpgradeAPI(LoginRequiredMixin, View):
         except Exception:
             return JsonResponse({"error": "Invalid JSON"}, status=400)
         try:
-            sub = request.user.subscription_ref
+            sub = request.user.subscription
         except Exception:
             sub = None
         if not sub:

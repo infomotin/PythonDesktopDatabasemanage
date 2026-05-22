@@ -321,3 +321,649 @@ ERROR 2026-05-21 15:26:49,537 basehttp "GET /users/signup/ HTTP/1.1" 500 84418
 INFO 2026-05-21 15:28:26,862 autoreload Watching for file changes with StatReloader
 INFO 2026-05-21 15:28:31,689 middleware HTTP GET /users/signup/ -> 200 (156.8ms) [127.0.0.1]
 INFO 2026-05-21 15:28:31,690 basehttp "GET /users/signup/ HTTP/1.1" 200 4202
+INFO 2026-05-21 15:30:31,367 autoreload Watching for file changes with StatReloader
+INFO 2026-05-21 15:30:41,892 middleware HTTP GET / -> 302 (33.5ms) [127.0.0.1]
+INFO 2026-05-21 15:30:41,892 basehttp "GET / HTTP/1.1" 302 0
+INFO 2026-05-21 15:30:41,967 middleware HTTP GET /users/login/ -> 200 (72.1ms) [127.0.0.1]
+INFO 2026-05-21 15:30:41,968 basehttp "GET /users/login/?next=/ HTTP/1.1" 200 2682
+INFO 2026-05-21 15:31:05,971 autoreload Watching for file changes with StatReloader
+INFO 2026-05-21 15:31:55,631 autoreload Watching for file changes with StatReloader
+INFO 2026-05-21 15:32:02,836 middleware HTTP GET /users/signup/ -> 200 (123.3ms) [127.0.0.1]
+INFO 2026-05-21 15:32:02,836 basehttp "GET /users/signup/ HTTP/1.1" 200 4202
+INFO 2026-05-21 15:32:15,083 middleware HTTP GET / -> 302 (1.0ms) [127.0.0.1]
+INFO 2026-05-21 15:32:15,083 basehttp "GET / HTTP/1.1" 302 0
+INFO 2026-05-21 15:32:15,098 middleware HTTP GET /users/login/ -> 200 (8.7ms) [127.0.0.1]
+INFO 2026-05-21 15:32:15,099 basehttp "GET /users/login/?next=/ HTTP/1.1" 200 2682
+INFO 2026-05-21 15:32:50,666 middleware HTTP POST /users/login/ -> 200 (344.4ms) [127.0.0.1]
+INFO 2026-05-21 15:32:50,667 basehttp "POST /users/login/?next=/ HTTP/1.1" 200 2858
+INFO 2026-05-21 15:33:14,234 autoreload Watching for file changes with StatReloader
+INFO 2026-05-21 15:33:43,340 middleware HTTP POST /users/login/ -> 200 (441.9ms) [127.0.0.1]
+INFO 2026-05-21 15:33:43,342 basehttp "POST /users/login/?next=/ HTTP/1.1" 200 2858
+INFO 2026-05-21 15:33:45,836 middleware HTTP POST /users/login/ -> 200 (25.3ms) [127.0.0.1]
+INFO 2026-05-21 15:33:45,837 basehttp "POST /users/login/?next=/ HTTP/1.1" 200 3021
+INFO 2026-05-21 15:33:46,670 middleware HTTP POST /users/login/ -> 200 (4.2ms) [127.0.0.1]
+INFO 2026-05-21 15:33:46,671 basehttp "POST /users/login/?next=/ HTTP/1.1" 200 3021
+INFO 2026-05-21 15:33:51,260 middleware HTTP POST /users/login/ -> 200 (339.6ms) [127.0.0.1]
+INFO 2026-05-21 15:33:51,260 basehttp "POST /users/login/?next=/ HTTP/1.1" 200 2858
+INFO 2026-05-21 15:33:52,916 middleware HTTP POST /users/login/ -> 200 (4.5ms) [127.0.0.1]
+INFO 2026-05-21 15:33:52,917 basehttp "POST /users/login/?next=/ HTTP/1.1" 200 3021
+INFO 2026-05-21 15:34:07,392 middleware HTTP GET /users/signup/ -> 200 (14.4ms) [127.0.0.1]
+INFO 2026-05-21 15:34:07,393 basehttp "GET /users/signup/ HTTP/1.1" 200 4202
+INFO 2026-05-21 15:34:08,803 middleware HTTP GET /users/login/ -> 200 (1.5ms) [127.0.0.1]
+INFO 2026-05-21 15:34:08,804 basehttp "GET /users/login/ HTTP/1.1" 200 2682
+INFO 2026-05-21 15:34:09,813 middleware HTTP GET / -> 302 (1.2ms) [127.0.0.1]
+INFO 2026-05-21 15:34:09,813 basehttp "GET / HTTP/1.1" 302 0
+INFO 2026-05-21 15:34:09,820 middleware HTTP GET /users/login/ -> 200 (3.5ms) [127.0.0.1]
+INFO 2026-05-21 15:34:09,821 basehttp "GET /users/login/?next=/ HTTP/1.1" 200 2682
+INFO 2026-05-21 15:34:15,613 middleware HTTP GET / -> 302 (1.0ms) [127.0.0.1]
+INFO 2026-05-21 15:34:15,614 basehttp "GET / HTTP/1.1" 302 0
+INFO 2026-05-21 15:34:15,623 middleware HTTP GET /users/login/ -> 200 (2.5ms) [127.0.0.1]
+INFO 2026-05-21 15:34:15,623 basehttp "GET /users/login/?next=/ HTTP/1.1" 200 2682
+INFO 2026-05-21 15:34:18,758 middleware HTTP GET /users/signup/ -> 200 (5.2ms) [127.0.0.1]
+INFO 2026-05-21 15:34:18,759 basehttp "GET /users/signup/ HTTP/1.1" 200 4202
+INFO 2026-05-21 15:34:21,342 middleware HTTP POST /users/signup/ -> 200 (4.7ms) [127.0.0.1]
+INFO 2026-05-21 15:34:21,343 basehttp "POST /users/signup/ HTTP/1.1" 200 4954
+INFO 2026-05-21 15:34:44,662 middleware HTTP POST /users/signup/ -> 200 (49.1ms) [127.0.0.1]
+INFO 2026-05-21 15:34:44,662 basehttp "POST /users/signup/ HTTP/1.1" 200 4548
+INFO 2026-05-21 15:35:00,362 middleware HTTP POST /users/signup/ -> 200 (10.3ms) [127.0.0.1]
+INFO 2026-05-21 15:35:00,362 basehttp "POST /users/signup/ HTTP/1.1" 200 4693
+INFO 2026-05-21 15:35:12,963 middleware HTTP POST /users/signup/ -> 200 (11.0ms) [127.0.0.1]
+INFO 2026-05-21 15:35:12,965 basehttp "POST /users/signup/ HTTP/1.1" 200 4548
+INFO 2026-05-21 15:35:30,404 middleware HTTP POST /users/signup/ -> 200 (11.2ms) [127.0.0.1]
+INFO 2026-05-21 15:35:30,404 basehttp "POST /users/signup/ HTTP/1.1" 200 4548
+INFO 2026-05-21 15:35:53,060 middleware HTTP POST /users/signup/ -> 302 (2753.7ms) [127.0.0.1]
+INFO 2026-05-21 15:35:53,068 basehttp "POST /users/signup/ HTTP/1.1" 302 0
+ERROR 2026-05-21 15:35:53,082 middleware Unhandled exception on /: 'User' object has no attribute 'subscription_ref'
+Traceback (most recent call last):
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "D:\laragon\www\PythonDesktopDatabasemanage\apps\dashboard\views.py", line 26, in index
+    return render(request, "dashboard/dashboard.html", {
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 170, in render
+    with context.bind_template(self):
+  File "D:\laragon\bin\python\python-3.10\lib\contextlib.py", line 135, in __enter__
+    return next(self.gen)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\context.py", line 259, in bind_template
+    context = processor(self.request)
+  File "D:\laragon\www\PythonDesktopDatabasemanage\apps\subscription\context_processors.py", line 7, in user_subscription
+    sub = request.user.subscription_ref
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\utils\functional.py", line 253, in inner
+    return func(_wrapped, *args)
+AttributeError: 'User' object has no attribute 'subscription_ref'
+ERROR 2026-05-21 15:35:53,129 log Internal Server Error: /
+Traceback (most recent call last):
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "D:\laragon\www\PythonDesktopDatabasemanage\apps\dashboard\views.py", line 26, in index
+    return render(request, "dashboard/dashboard.html", {
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 170, in render
+    with context.bind_template(self):
+  File "D:\laragon\bin\python\python-3.10\lib\contextlib.py", line 135, in __enter__
+    return next(self.gen)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\context.py", line 259, in bind_template
+    context = processor(self.request)
+  File "D:\laragon\www\PythonDesktopDatabasemanage\apps\subscription\context_processors.py", line 7, in user_subscription
+    sub = request.user.subscription_ref
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\utils\functional.py", line 253, in inner
+    return func(_wrapped, *args)
+AttributeError: 'User' object has no attribute 'subscription_ref'
+INFO 2026-05-21 15:35:53,130 middleware HTTP GET / -> 500 (58.4ms) [127.0.0.1]
+ERROR 2026-05-21 15:35:53,130 basehttp "GET / HTTP/1.1" 500 125760
+INFO 2026-05-21 15:37:53,562 autoreload D:\laragon\www\PythonDesktopDatabasemanage\apps\users\models.py changed, reloading.
+INFO 2026-05-21 15:37:54,931 autoreload Watching for file changes with StatReloader
+INFO 2026-05-21 15:38:39,722 middleware HTTP GET / -> 200 (185.6ms) [127.0.0.1]
+INFO 2026-05-21 15:38:39,723 basehttp "GET / HTTP/1.1" 200 3793
+INFO 2026-05-21 15:38:45,998 middleware HTTP GET /databases/ -> 200 (18.3ms) [127.0.0.1]
+INFO 2026-05-21 15:38:45,998 basehttp "GET /databases/ HTTP/1.1" 200 3202
+INFO 2026-05-21 15:38:48,117 middleware HTTP GET /connections/ -> 200 (14.0ms) [127.0.0.1]
+INFO 2026-05-21 15:38:48,118 basehttp "GET /connections/ HTTP/1.1" 200 3156
+INFO 2026-05-21 15:38:49,482 middleware HTTP GET / -> 200 (9.0ms) [127.0.0.1]
+INFO 2026-05-21 15:38:49,483 basehttp "GET / HTTP/1.1" 200 3619
+INFO 2026-05-21 15:38:49,851 autoreload D:\laragon\www\PythonDesktopDatabasemanage\apps\subscription\views.py changed, reloading.
+INFO 2026-05-21 15:38:51,362 autoreload Watching for file changes with StatReloader
+INFO 2026-05-21 15:39:00,590 middleware HTTP GET /connections/create/ -> 200 (220.4ms) [127.0.0.1]
+INFO 2026-05-21 15:39:00,592 basehttp "GET /connections/create/ HTTP/1.1" 200 4993
+INFO 2026-05-21 15:39:18,645 autoreload D:\laragon\www\PythonDesktopDatabasemanage\apps\query_analytics\views.py changed, reloading.
+INFO 2026-05-21 15:39:20,442 autoreload Watching for file changes with StatReloader
+INFO 2026-05-21 15:39:23,749 middleware HTTP POST /connections/create/ -> 302 (94.9ms) [127.0.0.1]
+INFO 2026-05-21 15:39:23,749 basehttp "POST /connections/create/ HTTP/1.1" 302 0
+ERROR 2026-05-21 15:39:23,785 middleware Unhandled exception on /connections/: Reverse for 'test' not found. 'test' is not a valid view function or pattern name.
+Traceback (most recent call last):
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\response.py", line 92, in rendered_content
+    return template.render(context, self._request)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 172, in render
+    return self._render(context)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 164, in _render
+    return self.nodelist.render(context)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 1018, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 1018, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 979, in render_annotated
+    return self.render(context)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 164, in _render
+    return self.nodelist.render(context)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 1018, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 1018, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 979, in render_annotated
+    return self.render(context)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 1018, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 1018, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 979, in render_annotated
+    return self.render(context)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\defaulttags.py", line 243, in render
+    nodelist.append(node.render_annotated(context))
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 979, in render_annotated
+    return self.render(context)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\defaulttags.py", line 480, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\urls\base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\urls\resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'test' not found. 'test' is not a valid view function or pattern name.
+ERROR 2026-05-21 15:39:23,874 log Internal Server Error: /connections/
+Traceback (most recent call last):
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\response.py", line 92, in rendered_content
+    return template.render(context, self._request)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 172, in render
+    return self._render(context)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 164, in _render
+    return self.nodelist.render(context)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 1018, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 1018, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 979, in render_annotated
+    return self.render(context)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 164, in _render
+    return self.nodelist.render(context)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 1018, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 1018, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 979, in render_annotated
+    return self.render(context)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 1018, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 1018, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 979, in render_annotated
+    return self.render(context)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\defaulttags.py", line 243, in render
+    nodelist.append(node.render_annotated(context))
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 979, in render_annotated
+    return self.render(context)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\defaulttags.py", line 480, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\urls\base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\urls\resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'test' not found. 'test' is not a valid view function or pattern name.
+INFO 2026-05-21 15:39:23,875 middleware HTTP GET /connections/ -> 500 (122.7ms) [127.0.0.1]
+ERROR 2026-05-21 15:39:23,877 basehttp "GET /connections/ HTTP/1.1" 500 198127
+ERROR 2026-05-21 15:40:04,239 middleware Unhandled exception on /connections/: Reverse for 'test' not found. 'test' is not a valid view function or pattern name.
+Traceback (most recent call last):
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\response.py", line 92, in rendered_content
+    return template.render(context, self._request)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 172, in render
+    return self._render(context)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 164, in _render
+    return self.nodelist.render(context)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 1018, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 1018, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 979, in render_annotated
+    return self.render(context)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 164, in _render
+    return self.nodelist.render(context)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 1018, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 1018, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 979, in render_annotated
+    return self.render(context)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 1018, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 1018, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 979, in render_annotated
+    return self.render(context)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\defaulttags.py", line 243, in render
+    nodelist.append(node.render_annotated(context))
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 979, in render_annotated
+    return self.render(context)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\defaulttags.py", line 480, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\urls\base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\urls\resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'test' not found. 'test' is not a valid view function or pattern name.
+ERROR 2026-05-21 15:40:04,306 log Internal Server Error: /connections/
+Traceback (most recent call last):
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\response.py", line 92, in rendered_content
+    return template.render(context, self._request)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 172, in render
+    return self._render(context)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 164, in _render
+    return self.nodelist.render(context)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 1018, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 1018, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 979, in render_annotated
+    return self.render(context)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 164, in _render
+    return self.nodelist.render(context)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 1018, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 1018, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 979, in render_annotated
+    return self.render(context)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 1018, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 1018, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 979, in render_annotated
+    return self.render(context)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\defaulttags.py", line 243, in render
+    nodelist.append(node.render_annotated(context))
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 979, in render_annotated
+    return self.render(context)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\defaulttags.py", line 480, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\urls\base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\urls\resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'test' not found. 'test' is not a valid view function or pattern name.
+INFO 2026-05-21 15:40:04,308 middleware HTTP GET /connections/ -> 500 (81.1ms) [127.0.0.1]
+ERROR 2026-05-21 15:40:04,309 basehttp "GET /connections/ HTTP/1.1" 500 197870
+INFO 2026-05-21 15:40:05,356 middleware HTTP GET /connections/create/ -> 200 (20.6ms) [127.0.0.1]
+INFO 2026-05-21 15:40:05,358 basehttp "GET /connections/create/ HTTP/1.1" 200 4993
+INFO 2026-05-21 15:40:08,736 middleware HTTP GET / -> 200 (14.1ms) [127.0.0.1]
+INFO 2026-05-21 15:40:08,736 basehttp "GET / HTTP/1.1" 200 3619
+ERROR 2026-05-21 15:40:11,749 middleware Unhandled exception on /connections/: Reverse for 'test' not found. 'test' is not a valid view function or pattern name.
+Traceback (most recent call last):
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\response.py", line 92, in rendered_content
+    return template.render(context, self._request)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 172, in render
+    return self._render(context)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 164, in _render
+    return self.nodelist.render(context)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 1018, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 1018, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 979, in render_annotated
+    return self.render(context)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 164, in _render
+    return self.nodelist.render(context)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 1018, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 1018, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 979, in render_annotated
+    return self.render(context)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 1018, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 1018, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 979, in render_annotated
+    return self.render(context)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\defaulttags.py", line 243, in render
+    nodelist.append(node.render_annotated(context))
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 979, in render_annotated
+    return self.render(context)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\defaulttags.py", line 480, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\urls\base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\urls\resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'test' not found. 'test' is not a valid view function or pattern name.
+ERROR 2026-05-21 15:40:11,803 log Internal Server Error: /connections/
+Traceback (most recent call last):
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\response.py", line 92, in rendered_content
+    return template.render(context, self._request)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 172, in render
+    return self._render(context)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 164, in _render
+    return self.nodelist.render(context)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 1018, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 1018, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 979, in render_annotated
+    return self.render(context)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 164, in _render
+    return self.nodelist.render(context)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 1018, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 1018, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 979, in render_annotated
+    return self.render(context)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 1018, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 1018, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 979, in render_annotated
+    return self.render(context)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\defaulttags.py", line 243, in render
+    nodelist.append(node.render_annotated(context))
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 979, in render_annotated
+    return self.render(context)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\defaulttags.py", line 480, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\urls\base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\urls\resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'test' not found. 'test' is not a valid view function or pattern name.
+INFO 2026-05-21 15:40:11,804 middleware HTTP GET /connections/ -> 500 (70.7ms) [127.0.0.1]
+ERROR 2026-05-21 15:40:11,806 basehttp "GET /connections/ HTTP/1.1" 500 197714
+INFO 2026-05-21 15:40:17,604 autoreload Watching for file changes with StatReloader
+INFO 2026-05-21 15:40:22,943 middleware HTTP GET /query-builder/new/ -> 200 (120.1ms) [127.0.0.1]
+INFO 2026-05-21 15:40:22,943 basehttp "GET /query-builder/new/ HTTP/1.1" 200 2376
+INFO 2026-05-21 15:40:32,665 middleware HTTP GET /subscription/ -> 200 (21.4ms) [127.0.0.1]
+INFO 2026-05-21 15:40:32,665 basehttp "GET /subscription/ HTTP/1.1" 200 2454
+INFO 2026-05-21 15:42:09,692 autoreload Watching for file changes with StatReloader
+INFO 2026-05-21 15:55:52,948 autoreload Watching for file changes with StatReloader
+INFO 2026-05-21 16:04:44,205 autoreload Watching for file changes with StatReloader
+ERROR 2026-05-21 16:09:02,111 middleware Unhandled exception on /connections/: Reverse for 'test' not found. 'test' is not a valid view function or pattern name.
+Traceback (most recent call last):
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\response.py", line 92, in rendered_content
+    return template.render(context, self._request)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 172, in render
+    return self._render(context)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 164, in _render
+    return self.nodelist.render(context)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 1018, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 1018, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 979, in render_annotated
+    return self.render(context)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 164, in _render
+    return self.nodelist.render(context)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 1018, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 1018, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 979, in render_annotated
+    return self.render(context)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 1018, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 1018, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 979, in render_annotated
+    return self.render(context)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\defaulttags.py", line 243, in render
+    nodelist.append(node.render_annotated(context))
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 979, in render_annotated
+    return self.render(context)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\defaulttags.py", line 480, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\urls\base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\urls\resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'test' not found. 'test' is not a valid view function or pattern name.
+ERROR 2026-05-21 16:09:02,165 log Internal Server Error: /connections/
+Traceback (most recent call last):
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\response.py", line 92, in rendered_content
+    return template.render(context, self._request)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 172, in render
+    return self._render(context)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 164, in _render
+    return self.nodelist.render(context)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 1018, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 1018, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 979, in render_annotated
+    return self.render(context)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 164, in _render
+    return self.nodelist.render(context)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 1018, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 1018, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 979, in render_annotated
+    return self.render(context)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 1018, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 1018, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 979, in render_annotated
+    return self.render(context)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\defaulttags.py", line 243, in render
+    nodelist.append(node.render_annotated(context))
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 979, in render_annotated
+    return self.render(context)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\defaulttags.py", line 480, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\urls\base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\urls\resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'test' not found. 'test' is not a valid view function or pattern name.
+INFO 2026-05-21 16:09:02,166 middleware HTTP GET /connections/ -> 500 (169.5ms) [127.0.0.1]
+ERROR 2026-05-21 16:09:02,167 basehttp "GET /connections/ HTTP/1.1" 500 192343
+ERROR 2026-05-22 08:45:32,187 middleware Unhandled exception on /connections/: Reverse for 'test' not found. 'test' is not a valid view function or pattern name.
+Traceback (most recent call last):
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\response.py", line 92, in rendered_content
+    return template.render(context, self._request)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 172, in render
+    return self._render(context)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 164, in _render
+    return self.nodelist.render(context)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 1018, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 1018, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 979, in render_annotated
+    return self.render(context)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 164, in _render
+    return self.nodelist.render(context)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 1018, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 1018, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 979, in render_annotated
+    return self.render(context)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 1018, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 1018, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 979, in render_annotated
+    return self.render(context)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\defaulttags.py", line 243, in render
+    nodelist.append(node.render_annotated(context))
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 979, in render_annotated
+    return self.render(context)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\defaulttags.py", line 480, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\urls\base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\urls\resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'test' not found. 'test' is not a valid view function or pattern name.
+ERROR 2026-05-22 08:45:32,337 log Internal Server Error: /connections/
+Traceback (most recent call last):
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\response.py", line 92, in rendered_content
+    return template.render(context, self._request)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 172, in render
+    return self._render(context)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 164, in _render
+    return self.nodelist.render(context)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 1018, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 1018, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 979, in render_annotated
+    return self.render(context)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 164, in _render
+    return self.nodelist.render(context)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 1018, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 1018, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 979, in render_annotated
+    return self.render(context)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 1018, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 1018, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 979, in render_annotated
+    return self.render(context)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\defaulttags.py", line 243, in render
+    nodelist.append(node.render_annotated(context))
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\base.py", line 979, in render_annotated
+    return self.render(context)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\template\defaulttags.py", line 480, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\urls\base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "D:\laragon\bin\python\python-3.10\lib\site-packages\django\urls\resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'test' not found. 'test' is not a valid view function or pattern name.
+INFO 2026-05-22 08:45:32,337 middleware HTTP GET /connections/ -> 500 (172.0ms) [127.0.0.1]
+ERROR 2026-05-22 08:45:32,339 basehttp "GET /connections/ HTTP/1.1" 500 192343

@@ -36,7 +36,7 @@ _TIER_NAMES = {"free": "free", "premium": "pro", "enterprise": "enterprise"}
 
 def _get_tier(request):
     try:
-        sub = request.user.subscription_ref
+        sub = request.user.subscription
         tier_name = getattr(sub.tier, "name", "free")
         return _TIER_NAMES.get(tier_name, "free")
     except Exception:

@@ -41,7 +41,7 @@ class Command(BaseCommand):
             if user not in users_seen:
                 tier_name = "free"
                 try:
-                    sub = user.subscription_ref
+                    sub = user.subscription
                     tier_name = getattr(sub.tier, "name", "free") if sub and sub.tier else "free"
                 except Exception:
                     pass

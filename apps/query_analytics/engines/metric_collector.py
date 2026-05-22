@@ -50,7 +50,7 @@ else:
 def _should_collect(user, engine: str) -> bool:
     """Free tier collects basic metrics; Premium/Enterprise always."""
     try:
-        sub = user.subscription_ref
+        sub = user.subscription
     except Exception:
         return True
     if not sub or not sub.tier:

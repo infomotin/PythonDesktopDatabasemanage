@@ -52,7 +52,7 @@ class User(AbstractUser):
     def subscription(self):
         from apps.subscription.models import Subscription
         try:
-            return self.subscription_ref
+            return self.subscription
         except Subscription.DoesNotExist:
             return None
 
@@ -60,9 +60,10 @@ class User(AbstractUser):
         from apps.connections.models import DatabaseConnection
         if self.is_administrator:
             return True
-        if not hasattr(self, "subscription_ref"):
+        try:
+            sub = self.subscription
+        except Exception:
             return False
-        sub = getattr(self, "subscription_ref", None)
         if not sub:
             return False
         return (
@@ -74,7 +75,7 @@ class User(AbstractUser):
         if self.is_administrator:
             return -1
         try:
-            sub = self.subscription_ref
+            sub = self.subscription
         except Exception:
             return 1
         if not sub or not sub.tier:
@@ -83,7 +84,7 @@ class User(AbstractUser):
 
     def can_access_feature(self, feature: str) -> bool:
         try:
-            sub = self.subscription_ref
+            sub = self.subscription
         except Exception:
             return feature in ("query_builder", "analytics")
         if not sub or not sub.tier:

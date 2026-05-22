@@ -4,7 +4,7 @@ def user_subscription(request):
     from apps.subscription.models import Subscription
     if request.user.is_authenticated:
         try:
-            sub = request.user.subscription_ref
+            sub = request.user.subscription
         except Subscription.DoesNotExist:
             sub = None
     else:
