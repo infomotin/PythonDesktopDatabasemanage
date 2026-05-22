@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}Test Connection - {{ connection.name }}{% endblock %}
+{% block content %}
+<div class="p-6 max-w-3xl">
+    <h1 class="text-2xl font-bold mb-2">Test Connection</h1>
+    <p class="text-gray-400 mb-4">Connection: <strong>{{ connection.name }}</strong> · {{ connection.get_engine_display }} · {{ connection.host }}:{{ connection.port }}</p>
+
+    {% if messages %}
+    <div class="space-y-2 mb-4">
+        {% for message in messages %}
+        <div class="px-4 py-3 rounded {{ message.tags }} bg-gray-800 text-white border border-gray-700">{{ message }}</div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <div class="bg-gray-900 border border-gray-700 rounded-lg p-5 mb-4">
+        <dl class="grid grid-cols-1 gap-3 text-sm text-gray-300">
+            <div><span class="font-semibold">Database:</span> {{ connection.dbname }}</div>
+            <div><span class="font-semibold">Username:</span> {{ connection.username|default:"(none)" }}</div>
+            <div><span class="font-semibold">Last connected:</span> {{ connection.last_connected|default:"Never" }}</div>
+            <div><span class="font-semibold">Status:</span> {% if connection.is_active %}<span class="text-green-300">Active</span>{% else %}<span class="text-red-300">Inactive</span>{% endif %}</div>
+        </dl>
+    </div>
+
+    <form method="post" class="space-y-4">
+        {% csrf_token %}
+        <p class="text-gray-400">Click the button below to verify that this database connection can be reached. This will not modify any external database data.</p>
+        <button type="submit" class="bg-blue-600 hover:bg-blue-500 text-white px-5 py-2 rounded">Run Connection Test</button>
+        <a href="{% url 'connections:detail' connection.pk %}" class="inline-block ml-3 text-sm text-gray-300 hover:text-white">Back to Connection</a>
+    </form>
+</div>
+{% endblock %}
