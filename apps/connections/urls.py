@@ -9,6 +9,7 @@ urlpatterns = [
     path("<uuid:pk>/edit/", views.ConnectionUpdateView.as_view(), name="update"),
     path("<uuid:pk>/delete/", views.ConnectionDeleteView.as_view(), name="delete"),
     path("<uuid:pk>/execute/", views.ExecuteQueryView.as_view(), name="execute"),
+    path("<uuid:pk>/test/", views.TestConnectionView.as_view(), name="test"),
     path("<uuid:pk>/clone/", views.CloneConnectionView.as_view(), name="clone"),
     path("test-raw/", views.TestConnectionRawView.as_view(), name="test_raw"),
 ]
